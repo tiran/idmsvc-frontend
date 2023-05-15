@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: hmsidm
+objects:
+  - apiVersion: cloud.redhat.com/v1alpha1
+    kind: Frontend
+    metadata:
+      name: hmsidm
+    spec:
+      envName: ${ENV_NAME}
+      title: Domains
+      deploymentRepo: TBD
+      frontend:
+        paths:
+          - /apps/hmsidm
+      image: ${IMAGE}:${IMAGE_TAG}
+      navItems: 
+      - appId: hmsidm
+        title: Domains
+        href: "/settings/hmsidm"
+      module:
+        manifestLocation: "/apps/hmsidm/fed-mods.json"
+        modules:
+          - id: "hmsidm"
+            module: "./RootApp"
+            routes: 
+            - pathname: "/settings/hmsidm"
+
+parameters:
+  - name: ENV_NAME
+    required: true
+  - name: IMAGE_TAG
+    required: true
+  - name: IMAGE
+    value: TBD
