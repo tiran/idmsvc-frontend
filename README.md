@@ -1,13 +1,17 @@
+# idm-domains-frontend
+
 ## Initial etc/hosts setup
 
 In order to access the https://[env].foo.redhat.com in your browser, you have to add entries to your `/etc/hosts` file. This is a **one-time** setup that has to be done only once (unless you modify hosts) on each machine.
 
 To setup the hosts file run following command:
+
 ```bash
 npm run patch:hosts
 ```
 
 If this command throws an error run it as a `sudo`:
+
 ```bash
 sudo npm run patch:hosts
 ```
@@ -27,3 +31,10 @@ Update `config/dev.webpack.config.js` according to your application URL. [Read m
 ### Testing
 
 `npm run verify` will run `npm run lint` (eslint) and `npm test` (Jest)
+
+## Development
+
+See:
+
+* [Development Docs](docs/INDEX.md).
+* [Pattern Fly 4 - Components](https://www.patternfly.org/v4/components/about-modal).
