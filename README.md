@@ -34,7 +34,5 @@ Update `config/dev.webpack.config.js` according to your application URL. [Read m
 
 ## Development
 
-See:
-
 * [Development Docs](docs/INDEX.md).
 * [Pattern Fly 4 - Components](https://www.patternfly.org/v4/components/about-modal).
