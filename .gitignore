@@ -29,3 +29,5 @@ yarn-error.log*
 coverage
 
 .env
+secrets
+bin

@@ -17,7 +17,8 @@
     "start": "HOT=true fec dev",
     "test": "jest",
     "postinstall": "rimraf .cache",
-    "verify": "npm-run-all build lint test"
+    "verify": "npm-run-all build lint test",
+    "openapi-generator-cli": "openapi-generator-cli"
   },
   "dependencies": {
     "@patternfly/react-core": "^4.239.0",
@@ -41,6 +42,7 @@
     "@babel/preset-env": "7.14.7",
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "^7.17.12",
+    "@openapitools/openapi-generator-cli": "^2.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.8",
     "@redhat-cloud-services/eslint-config-redhat-cloud-services": "^1.2.3",
     "@redhat-cloud-services/frontend-components-config": "^4.6.26",
