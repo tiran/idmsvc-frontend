@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { Suspense, lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
@@ -8,6 +9,7 @@ import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 
 import './DefaultPage.scss';
+import Section from '@redhat-cloud-services/frontend-components/Section';
 
 // const SampleComponent = lazy(() => import('../../Components/SampleComponent/sample-component'));
 
@@ -23,6 +25,7 @@ import './DefaultPage.scss';
  */
 const DefaultPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     insights?.chrome?.appAction?.('default-page');
@@ -31,6 +34,11 @@ const DefaultPage = () => {
   const handleOpenLearnAbout = () => {
     // FIXME Update the URL with the location for docs
     window.open('https://access.redhat.com/articles/1586893', '_blank');
+  };
+
+  const handleOpenWizard = () => {
+    console.warn('handleOpenWizard at DefaultPage not implemented');
+    return;
   };
 
   return (
@@ -44,7 +52,7 @@ const DefaultPage = () => {
           </Button>
         </p>
       </PageHeader>
-      <Main>
+      <Section>
         <Bullseye>
           <EmptyState variant={EmptyStateVariant.full}>
             <RegistryIcon size="xl" />
@@ -61,13 +69,13 @@ const DefaultPage = () => {
                   <br /> and install packages via CLI.
                 </StackItem>
                 <StackItem>
-                  <Button>Add domain</Button>
+                  <Button onClick={handleOpenWizard}>Add domain</Button>
                 </StackItem>
               </Stack>
             </EmptyStateBody>
           </EmptyState>
         </Bullseye>
-      </Main>
+      </Section>
     </React.Fragment>
   );
 };

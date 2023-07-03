@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Bullseye, Spinner } from '@patternfly/react-core';
+// import WizardPage from './Routes/WizardPage/WizardPage';
 
 const DefaultPage = lazy(() => import(/* webpackChunkName: "DefaultPage" */ './Routes/DefaultPage/DefaultPage'));
 const OopsPage = lazy(() => import(/* webpackChunkName: "OopsPage" */ './Routes/OopsPage/OopsPage'));
@@ -15,7 +16,7 @@ const NoPermissionsPage = lazy(() => import(/* webpackChunkName: "NoPermissionsP
  *      path - https://prod.foo.redhat.com:1337/insights/advisor/rules
  *      component - component to be rendered when a route has been chosen.
  */
-const Routes = () => (
+const DomainRegistryRoutes = () => (
   <Suspense
     fallback={
       <Bullseye>
@@ -23,16 +24,14 @@ const Routes = () => (
       </Bullseye>
     }
   >
-    <Switch>
-      <Route path="/domains" component={DefaultPage} />
-      <Route path="/oops" component={OopsPage} />
-      <Route path="/no-permissions" component={NoPermissionsPage} />
+    <Routes>
+      <Route path="/domains" Component={DefaultPage} />
+      <Route path="/oops" Component={OopsPage} />
+      <Route path="/no-permissions" Component={NoPermissionsPage} />
       {/* Finally, catch all unmatched routes */}
-      <Route>
-        <Redirect to="/domains" />
-      </Route>
-    </Switch>
+      <Route path="*" element={<Navigate to="/domains" replace />} />
+    </Routes>
   </Suspense>
 );
 
-export default Routes;
+export default DomainRegistryRoutes;
