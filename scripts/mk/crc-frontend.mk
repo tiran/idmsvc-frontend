@@ -35,7 +35,6 @@ run:$(NODE_BIN)/fec  ## Execute frontend
 
 .PHONY: generate-api
 generate-api: $(NODE_BIN)/openapi-generator-cli $(PUBLIC_OPENAPI) ## Generate the API client from openapi specification
-	npm run openapi-generator-cli -- generate -i "$(PUBLIC_OPENAPI)" -g typescript-axios -o .$(APIDIR)
-	rm -f $(APIDIR)/.gitignore
-	rm -f $(APIDIR)/.npmignore
-	rm -f $(APIDIR)/git_push.sh
+	@rm -rf $(APIDIR)
+	npm run openapi-generator-cli -- generate -i "$(PUBLIC_OPENAPI)" -g typescript-axios -o $(APIDIR)
+	@rm -f $(APIDIR)/.gitignore $(APIDIR)/.npmignore $(APIDIR)/git_push.sh
