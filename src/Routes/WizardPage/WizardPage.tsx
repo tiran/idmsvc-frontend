@@ -19,6 +19,7 @@ import {
   Select,
   SelectOption,
   Stack,
+  TextArea,
   TextContent,
   TextInputGroup,
   TextInputGroupMain,
@@ -158,6 +159,7 @@ const WizardPage = () => {
     },
   ];
 
+  // FIXME Decouple in a component
   const page1Content = (
     <React.Fragment>
       <Form
@@ -270,6 +272,32 @@ const WizardPage = () => {
     </React.Fragment>
   );
 
+  // FIXME Encapsulate this in a component
+  const page2Content = (
+    <React.Fragment>
+      <Form
+        onSubmit={(value) => {
+          console.debug('onSubmit WizardPage' + String(value));
+        }}
+      >
+        <FormGroup label="Name" isRequired fieldId="register-domain-name">
+          <TextInput id="register-domain-name" className="domain-name"></TextInput>
+        </FormGroup>
+        <FormGroup label="Description" fieldId="register-domain-description">
+          <TextArea
+            id="register-domain-description"
+            type="text"
+            className="domain-description"
+            value={
+              'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, porro velit aperiam deserunt dolor amet esse rerum ea sit ' +
+              'sequi facere, necessitatibus quam! Ut sequi, praesentium officiis itaque aspernatur assumenda?'
+            }
+          ></TextArea>
+        </FormGroup>
+      </Form>
+    </React.Fragment>
+  );
+
   const pageNotImplemented = (
     <React.Fragment>
       <p>Not implemented</p>
@@ -283,7 +311,7 @@ const WizardPage = () => {
     },
     {
       name: 'Basic information',
-      component: pageNotImplemented,
+      component: page2Content,
     },
     {
       name: 'Registration',
