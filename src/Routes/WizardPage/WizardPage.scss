@@ -4,6 +4,17 @@
     margin-bottom: $ins-margin;
 }
 
+/*
+FIXME Add a solution that fit different widths 
+      so starting with some dimensions, the width: 50%
+      is not used, and a margin-right enough is added to
+      avoid the componing is hided by the 'Feedback'
+      button.
+*/
 .domain-type-select {
     width: 50%;
+}
+
+.domain-item-margin-left {
+    margin-left: 16px;
 }

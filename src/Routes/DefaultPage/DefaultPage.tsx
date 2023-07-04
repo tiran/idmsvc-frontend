@@ -37,8 +37,7 @@ const DefaultPage = () => {
   };
 
   const handleOpenWizard = () => {
-    console.warn('handleOpenWizard at DefaultPage not implemented');
-    return;
+    navigate('/domains/wizard', { replace: true });
   };
 
   return (

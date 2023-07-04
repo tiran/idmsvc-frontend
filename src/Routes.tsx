@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Bullseye, Spinner } from '@patternfly/react-core';
+import WizardPage from './Routes/WizardPage/WizardPage';
 // import WizardPage from './Routes/WizardPage/WizardPage';
 
 const DefaultPage = lazy(() => import(/* webpackChunkName: "DefaultPage" */ './Routes/DefaultPage/DefaultPage'));
@@ -26,6 +27,7 @@ const DomainRegistryRoutes = () => (
   >
     <Routes>
       <Route path="/domains" Component={DefaultPage} />
+      <Route path="/domains/wizard" Component={WizardPage} />
       <Route path="/oops" Component={OopsPage} />
       <Route path="/no-permissions" Component={NoPermissionsPage} />
       {/* Finally, catch all unmatched routes */}

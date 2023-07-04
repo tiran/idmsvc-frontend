@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
 import InfoCircleIcon from '@patternfly/react-icons/dist/esm/icons/info-circle-icon';
+import CopyIcon from '@patternfly/react-icons/dist/esm/icons/copy-icon';
 
 import {
   Button,
@@ -19,6 +20,9 @@ import {
   SelectOption,
   Stack,
   TextContent,
+  TextInputGroup,
+  TextInputGroupMain,
+  TextInputGroupUtilities,
   Wizard,
 } from '@patternfly/react-core';
 // import { DashboardWrapper, PageSection, PageSectionTypes, PageSectionVariants } from '@patternfly/react-core/src/demos/examples/DashboardWrapper';
@@ -27,7 +31,8 @@ import { TextInput } from '@patternfly/react-core';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 
 import './WizardPage.scss';
-import { useNavigate } from 'react-router-dom';
+import { NavigateOptions, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // const SampleComponent = lazy(() => import('../../Components/SampleComponent/sample-component'));
 
@@ -97,6 +102,40 @@ const WizardPage = () => {
     setIsOpen(!isOpen);
   };
 
+  const openInNewWindow = (url: string) => {
+    window.open(url, '_blank');
+  };
+
+  // TODO Update links
+  const firewallConfigurationLink =
+    'https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/using-and-configuring-firewalld_configuring-and-managing-networking';
+  const cloudProviderConfigurationLink =
+    'https://access.redhat.com/documentation/es-es/red_hat_subscription_management/2023/html-single/red_hat_cloud_access_reference_guide/index';
+  const networkConfigurationLink = 'https://www.redhat.com/sysadmin/network-interface-linux';
+  const installServerPackagesLink = 'https://freeipa.org/page/Quick_Start_Guide';
+
+  const onFirewallConfigurationClick = () => {
+    openInNewWindow(firewallConfigurationLink);
+  };
+
+  const onCloudProviderConfigurationClick = () => {
+    openInNewWindow(cloudProviderConfigurationLink);
+  };
+
+  const onNetworkConfigurationClick = () => {
+    openInNewWindow(networkConfigurationLink);
+  };
+
+  const onInstallServerPackagesClick = () => {
+    openInNewWindow(installServerPackagesLink);
+  };
+
+  const onCopyPkgCommand = () => {
+    // FIXME Add logic to copy content to the clipboard
+    console.warn('WizardPage:Page1:onCopyPkgCommand:Not implemented');
+    return;
+  };
+
   const toggle = (toggleRef: React.Ref<MenuToggleElement>) => (
     <MenuToggle
       ref={toggleRef}
@@ -123,7 +162,7 @@ const WizardPage = () => {
     <React.Fragment>
       <Form
         onSubmit={(value) => {
-          console.debug('onSubmit WizardPage');
+          console.debug('onSubmit WizardPage' + String(value));
         }}
       >
         <FormGroup
@@ -156,6 +195,77 @@ const WizardPage = () => {
             ))}
           </Select>
         </FormGroup>
+        <FormGroup label="Prerequisites">
+          <TextContent>
+            There are prerequisites that must be completed to create and use security for Red Hat Linux IdM/IPA. If any prerequisites are already in
+            place, please skip to the next step:
+          </TextContent>
+          <Button
+            className="domain-item-margin-left"
+            component="a"
+            target="_blank"
+            variant="link"
+            icon={<ExternalLinkAltIcon />}
+            iconPosition="right"
+            isInline
+            href={firewallConfigurationLink}
+          >
+            1. Firewall configuration
+          </Button>
+          <br />
+          <Button
+            className="domain-item-margin-left"
+            component="a"
+            target="_blank"
+            variant="link"
+            icon={<ExternalLinkAltIcon />}
+            iconPosition="right"
+            isInline
+            href={cloudProviderConfigurationLink}
+          >
+            2. Cloud provider configuration
+          </Button>
+          <br />
+          <Button
+            className="domain-item-margin-left"
+            component="a"
+            target="_blank"
+            variant="link"
+            icon={<ExternalLinkAltIcon />}
+            iconPosition="right"
+            isInline
+            href={networkConfigurationLink}
+          >
+            3. Networking configuration
+          </Button>
+          <br />
+          <Stack className="domain-item-margin-left">
+            <TextContent>4. Verify wether or not the package is present on your server(st) with this command:</TextContent>
+            <br />
+            <TextInputGroup>
+              <TextInputGroupMain value="disabled test input example" />
+              <TextInputGroupUtilities>
+                <Button variant="plain" onClick={onCopyPkgCommand} aria-label="Copy to clipboard">
+                  <CopyIcon />
+                </Button>
+              </TextInputGroupUtilities>
+            </TextInputGroup>
+            <TextContent>
+              If the package is not present on your server(s), follow these steps:{' '}
+              <Button
+                component="a"
+                target="_blank"
+                variant="link"
+                icon={<ExternalLinkAltIcon />}
+                iconPosition="right"
+                isInline
+                href={installServerPackagesLink}
+              >
+                Install server packages
+              </Button>
+            </TextContent>
+          </Stack>
+        </FormGroup>
       </Form>
     </React.Fragment>
   );
@@ -165,12 +275,6 @@ const WizardPage = () => {
       <p>Not implemented</p>
     </React.Fragment>
   );
-
-  // const drawerToggleButton = (
-  //   <Button isInline variant="link" onClick={onOpenClick}>
-  //     Open Drawer
-  //   </Button>
-  // );
 
   const steps = [
     {
@@ -191,7 +295,7 @@ const WizardPage = () => {
     },
   ];
 
-  const title = 'Add Domain';
+  const title = 'Add domain';
 
   return (
     <React.Fragment>
