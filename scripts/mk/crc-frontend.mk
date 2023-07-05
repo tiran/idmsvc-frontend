@@ -38,3 +38,8 @@ generate-api: $(NODE_BIN)/openapi-generator-cli $(PUBLIC_OPENAPI) ## Generate th
 	@rm -rf $(APIDIR)
 	npm run openapi-generator-cli -- generate -i "$(PUBLIC_OPENAPI)" -g typescript-axios -o $(APIDIR)
 	@rm -f $(APIDIR)/.gitignore $(APIDIR)/.npmignore $(APIDIR)/git_push.sh
+
+.PHONY: update-api
+update-api:
+	git submodule update --remote
+	$(MAKE) generate-api

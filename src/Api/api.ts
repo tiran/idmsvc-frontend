@@ -227,6 +227,12 @@ export interface Domain {
      * @memberof Domain
      */
     'rhel-idm'?: DomainIpa;
+    /**
+     * 
+     * @type {SigningKeys}
+     * @memberof Domain
+     */
+    'signing_keys'?: SigningKeys;
 }
 
 
@@ -349,6 +355,43 @@ export type DomainType = typeof DomainType[keyof typeof DomainType];
 
 
 /**
+ * 
+ * @export
+ * @interface ErrorInfo
+ */
+export interface ErrorInfo {
+    /**
+     * The human-readable HTTP status text for the error.
+     * @type {string}
+     * @memberof ErrorInfo
+     */
+    'title': string;
+    /**
+     * an application-specific error code
+     * @type {string}
+     * @memberof ErrorInfo
+     */
+    'code'?: string;
+    /**
+     * A detailed explanation of the error, e.g. traceback.
+     * @type {string}
+     * @memberof ErrorInfo
+     */
+    'detail'?: string;
+    /**
+     * a unique identifier for this particular occurrence of the problem.
+     * @type {string}
+     * @memberof ErrorInfo
+     */
+    'id': string;
+    /**
+     * The HTTP status code for the error.
+     * @type {string}
+     * @memberof ErrorInfo
+     */
+    'status': string;
+}
+/**
  * General error response returned by the hmsidm API
  * @export
  * @interface Errors
@@ -356,10 +399,10 @@ export type DomainType = typeof DomainType[keyof typeof DomainType];
 export interface Errors {
     /**
      * Error objects provide additional information about problems encountered while performing an operation.
-     * @type {Array<Error>}
+     * @type {Array<ErrorInfo>}
      * @memberof Errors
      */
-    'errors': Array<Error>;
+    'errors': Array<ErrorInfo>;
 }
 /**
  * Represent the request payload for the /hostconf/:fqdn endpoint.
@@ -474,6 +517,12 @@ export interface HostConfResponseSchema {
      * @memberof HostConfResponseSchema
      */
     'rhel-idm': HostConfResponseSchemaRhelIdm;
+    /**
+     * A serialized JWS token or JWT to authenticate a host registration request.
+     * @type {string}
+     * @memberof HostConfResponseSchema
+     */
+    'token'?: string;
 }
 
 
@@ -571,43 +620,6 @@ export interface ListDomainsResponseSchema {
      * @memberof ListDomainsResponseSchema
      */
     'meta': PaginationMeta;
-}
-/**
- * 
- * @export
- * @interface ModelError
- */
-export interface ModelError {
-    /**
-     * The human-readable HTTP status text for the error.
-     * @type {string}
-     * @memberof ModelError
-     */
-    'title': string;
-    /**
-     * an application-specific error code
-     * @type {string}
-     * @memberof ModelError
-     */
-    'code'?: string;
-    /**
-     * A detailed explanation of the error, e.g. traceback.
-     * @type {string}
-     * @memberof ModelError
-     */
-    'detail'?: string;
-    /**
-     * a unique identifier for this particular occurrence of the problem.
-     * @type {string}
-     * @memberof ModelError
-     */
-    'id': string;
-    /**
-     * The HTTP status code for the error.
-     * @type {string}
-     * @memberof ModelError
-     */
-    'status': string;
 }
 /**
  * Represent the navigation links for the data paginated.
@@ -713,6 +725,12 @@ export interface RegisterDomain {
      * @memberof RegisterDomain
      */
     'rhel-idm'?: DomainIpa;
+    /**
+     * 
+     * @type {SigningKeys}
+     * @memberof RegisterDomain
+     */
+    'signing_keys'?: SigningKeys;
 }
 
 
@@ -764,6 +782,12 @@ export interface ResponseDomain {
      * @memberof ResponseDomain
      */
     'rhel-idm'?: DomainIpa;
+    /**
+     * 
+     * @type {SigningKeys}
+     * @memberof ResponseDomain
+     */
+    'signing_keys'?: SigningKeys;
 }
 
 
@@ -785,6 +809,25 @@ export interface RhelIdmToken {
      * @memberof RhelIdmToken
      */
     'secret'?: string;
+}
+/**
+ * Serialized JWKs with revocation information
+ * @export
+ * @interface SigningKeys
+ */
+export interface SigningKeys {
+    /**
+     * An array of serialized JSON Web Keys (JWK strings)
+     * @type {Array<string>}
+     * @memberof SigningKeys
+     */
+    'keys': Array<string>;
+    /**
+     * An array of revoked key identifiers (JWK kid)
+     * @type {Array<string>}
+     * @memberof SigningKeys
+     */
+    'revoked_kids'?: Array<string>;
 }
 /**
  * Update a domain resource
@@ -834,6 +877,12 @@ export interface UpdateDomain {
      * @memberof UpdateDomain
      */
     'rhel-idm'?: DomainIpa;
+    /**
+     * 
+     * @type {SigningKeys}
+     * @memberof UpdateDomain
+     */
+    'signing_keys'?: SigningKeys;
 }
 
 
