@@ -13,10 +13,12 @@
     "lint:js": "eslint config src",
     "lint:js:fix": "eslint config src --fix",
     "lint:sass": "stylelint 'src/**/*.scss' --config .stylelintrc.json",
+    "lint:prettier": "prettier --check src",
     "patch:hosts": "fec patch-etc-hosts",
     "start": "HOT=true fec dev",
     "test": "jest",
     "postinstall": "rimraf .cache",
+    "prettier": "prettier --write src",
     "verify": "npm-run-all build lint test",
     "openapi-generator-cli": "openapi-generator-cli"
   },

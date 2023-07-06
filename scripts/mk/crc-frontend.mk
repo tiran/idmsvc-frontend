@@ -25,6 +25,10 @@ clean:  ## Clean the build
 lint:  $(NODE_BIN)/eslint $(NODE_BIN)/stylelint  ## Execute linters
 	npm run lint
 
+.PHONY: prettier
+prettier: $(NODE_BIN)/prettier  ## Make code prettier
+	npm run prettier
+
 .PHONY: test
 test:  $(NODE_BIN)/jest ## Execute unit tests
 	npm run test
@@ -34,9 +38,11 @@ run:$(NODE_BIN)/fec  ## Execute frontend
 	npm run start
 
 .PHONY: generate-api
-generate-api: $(NODE_BIN)/openapi-generator-cli $(PUBLIC_OPENAPI) ## Generate the API client from openapi specification
+generate-api: $(NODE_BIN)/openapi-generator-cli $(NODE_BIN)/prettier $(PUBLIC_OPENAPI) ## Generate the API client from openapi specification
 	@rm -rf $(APIDIR)
-	npm run openapi-generator-cli -- generate -i "$(PUBLIC_OPENAPI)" -g typescript-axios -o $(APIDIR)
+	TS_POST_PROCESS_FILE="node_modules/.bin/prettier --write" \
+	    npm run openapi-generator-cli -- generate --enable-post-process-file \
+	        -i "$(PUBLIC_OPENAPI)" -g typescript-axios -o $(APIDIR)
 	@rm -f $(APIDIR)/.gitignore $(APIDIR)/.npmignore $(APIDIR)/git_push.sh
 
 .PHONY: update-api
