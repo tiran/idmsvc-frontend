@@ -1,5 +1,5 @@
 ---
-image: fedora
+image: registry.fedoraproject.org/fedora:38
 
 stages:
   - check
