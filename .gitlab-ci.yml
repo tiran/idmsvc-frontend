@@ -1,0 +1,21 @@
+---
+image: fedora
+
+stages:
+  - check
+ 
+cache:
+  paths:
+    - node_modules/
+
+lint test:
+  stage: check
+  tags:
+    - shared
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  before_script:
+    - dnf install -y git make npm
+  script:
+    - make lint
+    - make test
