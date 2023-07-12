@@ -16,24 +16,21 @@ import {
   PageSectionTypes,
   PageSectionVariants,
   Switch,
-  TextArea,
   TextContent,
   TextInputGroup,
   TextInputGroupMain,
   TextInputGroupUtilities,
   Wizard,
 } from '@patternfly/react-core';
-// import { DashboardWrapper, PageSection, PageSectionTypes, PageSectionVariants } from '@patternfly/react-core/src/demos/examples/DashboardWrapper';
 
-import { TextInput } from '@patternfly/react-core';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 
 import './WizardPage.scss';
 import { useNavigate } from 'react-router-dom';
 import DomainList, { Domain } from '../../Components/DomainList/DomainList';
-import Page1 from './Components/Page1/Page1';
 
-// const SampleComponent = lazy(() => import('../../Components/SampleComponent/sample-component'));
+const Page1 = React.lazy(() => import('./Components/Page1/Page1'));
+const Page2 = React.lazy(() => import('./Components/Page2/Page2'));
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -103,32 +100,7 @@ const WizardPage = () => {
   };
 
   const page1Content = <Page1></Page1>;
-
-  // FIXME Encapsulate this in a component
-  const page2Content = (
-    <React.Fragment>
-      <Form
-        onSubmit={(value) => {
-          console.debug('onSubmit WizardPage' + String(value));
-        }}
-      >
-        <FormGroup label="Name" isRequired fieldId="register-domain-name">
-          <TextInput id="register-domain-name" className="domain-name"></TextInput>
-        </FormGroup>
-        <FormGroup label="Description" fieldId="register-domain-description">
-          <TextArea
-            id="register-domain-description"
-            type="text"
-            className="domain-description"
-            value={
-              'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, porro velit aperiam deserunt dolor amet esse rerum ea sit ' +
-              'sequi facere, necessitatibus quam! Ut sequi, praesentium officiis itaque aspernatur assumenda?'
-            }
-          ></TextArea>
-        </FormGroup>
-      </Form>
-    </React.Fragment>
-  );
+  const page2Content = <Page2></Page2>;
 
   const onCopyToClipboard = () => {
     console.info('Copy to clipboard');
