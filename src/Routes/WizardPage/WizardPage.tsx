@@ -12,13 +12,7 @@ import {
   DescriptionListTerm,
   Form,
   FormGroup,
-  Grid,
-  GridItem,
   Icon,
-  InputGroup,
-  InputGroupText,
-  Label,
-  List,
   MenuToggle,
   MenuToggleElement,
   Page,
@@ -42,8 +36,7 @@ import { TextInput } from '@patternfly/react-core';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 
 import './WizardPage.scss';
-import { NavigateOptions, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DomainList, { Domain } from '../../Components/DomainList/DomainList';
 
 // const SampleComponent = lazy(() => import('../../Components/SampleComponent/sample-component'));

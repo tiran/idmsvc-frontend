@@ -1,12 +1,10 @@
-import { TableComposable, TableHeader, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
+import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import './DomainList.scss';
-import { Fragment, PropsWithChildren, useState } from 'react';
+import { Fragment, useState } from 'react';
 import React from 'react';
-import { Props } from '@patternfly/react-core/dist/esm/helpers/Popper/DeprecatedTippyTypes';
 import { Button } from '@patternfly/react-core';
 import AngleRightIcon from '@patternfly/react-icons/dist/esm/icons/angle-right-icon';
 import AngleDownIcon from '@patternfly/react-icons/dist/esm/icons/angle-down-icon';
-import { Hash } from 'react-router-dom';
 
 export interface RhelIdmCaCert {
   issuer: string;

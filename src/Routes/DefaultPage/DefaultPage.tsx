@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
 import { RegistryIcon } from '@patternfly/react-icons/dist/esm/icons/registry-icon';
 
-import { Bullseye, Button, EmptyState, EmptyStateBody, EmptyStateVariant, Spinner, Stack, StackItem, Title } from '@patternfly/react-core';
-import { Main } from '@redhat-cloud-services/frontend-components/Main';
+import { Bullseye, Button, EmptyState, EmptyStateBody, EmptyStateVariant, Stack, StackItem, Title } from '@patternfly/react-core';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 
 import './DefaultPage.scss';

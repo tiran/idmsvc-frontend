@@ -10,10 +10,11 @@ module.exports = {
     {
       files: ['src/**/*.ts', 'src/**/*.tsx'],
       parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint'],
+      plugins: ['@typescript-eslint', 'unused-imports'],
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
         'react/prop-types': 'off',
+        'unused-imports/no-unused-imports-ts': 2,
       },
     },
   ],
