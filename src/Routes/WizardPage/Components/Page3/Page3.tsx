@@ -1,20 +1,13 @@
 import React from 'react';
 // import { useDispatch } from 'react-redux';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
-import CopyIcon from '@patternfly/react-icons/dist/esm/icons/copy-icon';
-
-import { Button, Form, FormGroup, TextContent, TextInputGroup, TextInputGroupMain, TextInputGroupUtilities } from '@patternfly/react-core';
+import { Button, ClipboardCopy, Form, FormGroup, TextContent } from '@patternfly/react-core';
 
 import './Page3.scss';
 
 const Page3 = () => {
   // TODO Update links
   const installServerPackagesLink = 'https://freeipa.org/page/Quick_Start_Guide';
-
-  const onCopyToClipboard = () => {
-    console.info('Copy to clipboard');
-    return;
-  };
 
   const openInNewWindow = (url: string) => {
     window.open(url, '_blank');
@@ -38,28 +31,18 @@ const Page3 = () => {
           <ol className="domain-page-3-list">
             <li>
               <TextContent>Ut enim ad minim mamiam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</TextContent>
-              <TextInputGroup>
-                <TextInputGroupMain value="ipa-hcc register 094e3816-1a3c-11ee-bac7-482ae3863d30 0e7b6d9a-1a3c-11ee-9874-482ae3863d30" />
-                <TextInputGroupUtilities>
-                  <Button variant="plain" onClick={onCopyToClipboard} aria-label="Copy to clipboard">
-                    <CopyIcon />
-                  </Button>
-                </TextInputGroupUtilities>
-              </TextInputGroup>
+              <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
+                ipa-hcc register 094e3816-1a3c-11ee-bac7-482ae3863d30 0e7b6d9a-1a3c-11ee-9874-482ae3863d30
+              </ClipboardCopy>
             </li>
             <li>
               <TextContent>Duis aute irune dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</TextContent>
             </li>
             <li>
               <TextContent>Once you have completed the steps, return here to test the package installation.</TextContent>
-              <TextInputGroup>
-                <TextInputGroupMain value="ipa-hcc status" />
-                <TextInputGroupUtilities>
-                  <Button variant="plain" onClick={onCopyToClipboard} aria-label="Copy to clipboard">
-                    <CopyIcon />
-                  </Button>
-                </TextInputGroupUtilities>
-              </TextInputGroup>
+              <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
+                ipa-hcc status
+              </ClipboardCopy>
             </li>
             <li>
               <TextContent>If you receive message &quot;XYZ&quot; as a final response, the package was successfully installed.</TextContent>
