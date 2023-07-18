@@ -118,7 +118,7 @@ const Page1 = () => {
           <Stack className="domain-item-margin-left">
             <TextContent>4. Verify wether or not the package is present on your server(st) with this command:</TextContent>
             <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
-              dnf list installed ipa-hcc
+              dnf list installed ipa-hcc-server
             </ClipboardCopy>
             <TextContent>
               If the package is not present on your server(s), follow these steps:{' '}
@@ -133,6 +133,11 @@ const Page1 = () => {
               >
                 Install server packages
               </Button>
+              <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
+                dnf copr enable copr.devel.redhat.com/cheimes/ipa-hcc && dnf install ipa-hcc-server
+              </ClipboardCopy>
+              The package must be installed on at least one IPA server. For redundency, the package should be installed on two or more IPA servers,
+              possibly all IPA servers.
             </TextContent>
           </Stack>
         </FormGroup>

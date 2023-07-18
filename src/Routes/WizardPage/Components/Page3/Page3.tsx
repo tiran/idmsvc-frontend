@@ -30,13 +30,13 @@ const Page3 = () => {
           </TextContent>
           <ol className="domain-page-3-list">
             <li>
-              <TextContent>Ut enim ad minim mamiam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</TextContent>
+              <TextContent>Run the registration command on one IPA server with the &quot;ipa-hcc-server&quot; package.</TextContent>
               <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
                 ipa-hcc register 094e3816-1a3c-11ee-bac7-482ae3863d30 0e7b6d9a-1a3c-11ee-9874-482ae3863d30
               </ClipboardCopy>
             </li>
             <li>
-              <TextContent>Duis aute irune dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</TextContent>
+              <TextContent>The command registers the IPA domain and all IPA servers with Console.</TextContent>
             </li>
             <li>
               <TextContent>Once you have completed the steps, return here to test the package installation.</TextContent>
@@ -52,9 +52,6 @@ const Page3 = () => {
                   Troubleshoot your package installation
                 </Button>
               </TextContent>
-            </li>
-            <li>
-              <TextContent>Repeat this process for each server within this domain you want to register.</TextContent>
             </li>
           </ol>
         </FormGroup>
