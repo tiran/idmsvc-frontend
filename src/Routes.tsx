@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Bullseye, Spinner } from '@patternfly/react-core';
 import WizardPage from './Routes/WizardPage/WizardPage';
-// import WizardPage from './Routes/WizardPage/WizardPage';
 
 const DefaultPage = lazy(() => import(/* webpackChunkName: "DefaultPage" */ './Routes/DefaultPage/DefaultPage'));
 const OopsPage = lazy(() => import(/* webpackChunkName: "OopsPage" */ './Routes/OopsPage/OopsPage'));

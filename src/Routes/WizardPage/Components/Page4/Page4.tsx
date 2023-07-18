@@ -5,11 +5,7 @@ import { DescriptionList, DescriptionListDescription, DescriptionListGroup, Desc
 import './Page4.scss';
 import DomainList, { Domain } from '../../../../Components/DomainList/DomainList';
 
-interface Page4Prop {
-  data: Domain[];
-}
-
-const Page4: React.FC<Page4Prop> = (props) => {
+const Page4: React.FC<{ data: Domain[] }> = (props) => {
   const [isHostJoinEnabled, setIsHostJoinEnabled] = React.useState(true);
   const [domain] = useState<Domain[]>(props.data);
 

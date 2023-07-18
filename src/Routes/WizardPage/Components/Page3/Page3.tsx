@@ -4,8 +4,14 @@ import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/exte
 import { Button, ClipboardCopy, Form, FormGroup, TextContent } from '@patternfly/react-core';
 
 import './Page3.scss';
+import { Domain } from '../../../../Api/api';
 
-const Page3 = () => {
+interface Page3Prop {
+  data: Domain;
+  token: string;
+}
+
+const Page3: React.FC<Page3Prop> = (props) => {
   // TODO Update links
   const installServerPackagesLink = 'https://freeipa.org/page/Quick_Start_Guide';
 
@@ -16,6 +22,9 @@ const Page3 = () => {
   const onInstallServerPackagesClick = () => {
     openInNewWindow(installServerPackagesLink);
   };
+
+  const ipa_hcc_register_cmd = 'ipa-hcc register ' + props.data.domain_id + ' ' + props.token;
+  const ipa_hcc_status_cmd = 'ipa-hcc status';
 
   return (
     <React.Fragment>
@@ -32,7 +41,7 @@ const Page3 = () => {
             <li>
               <TextContent>Run the registration command on one IPA server with the &quot;ipa-hcc-server&quot; package.</TextContent>
               <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
-                ipa-hcc register 094e3816-1a3c-11ee-bac7-482ae3863d30 0e7b6d9a-1a3c-11ee-9874-482ae3863d30
+                {ipa_hcc_register_cmd}
               </ClipboardCopy>
             </li>
             <li>
@@ -41,7 +50,7 @@ const Page3 = () => {
             <li>
               <TextContent>Once you have completed the steps, return here to test the package installation.</TextContent>
               <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
-                ipa-hcc status
+                {ipa_hcc_status_cmd}
               </ClipboardCopy>
             </li>
             <li>

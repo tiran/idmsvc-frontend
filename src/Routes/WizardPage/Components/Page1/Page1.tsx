@@ -5,7 +5,7 @@ import { Button, ClipboardCopy, Form, FormGroup, Icon, Select, SelectOption, Sta
 
 import './Page1.scss';
 
-const Page1 = () => {
+const Page1: React.FC = () => {
   // TODO Update links
   const firewallConfigurationLink =
     'https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/using-and-configuring-firewalld_configuring-and-managing-networking';
@@ -14,6 +14,7 @@ const Page1 = () => {
   const networkConfigurationLink = 'https://www.redhat.com/sysadmin/network-interface-linux';
   const installServerPackagesLink = 'https://freeipa.org/page/Quick_Start_Guide';
 
+  // States
   const [isOpen, setIsOpen] = React.useState(false);
 
   // hooks
