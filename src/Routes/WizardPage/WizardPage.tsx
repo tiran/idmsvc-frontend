@@ -85,12 +85,6 @@ const WizardPage = () => {
     },
   };
 
-  const pageNotImplemented = (
-    <React.Fragment>
-      <p>Not implemented</p>
-    </React.Fragment>
-  );
-
   const steps = [
     {
       name: 'Prerequisites',

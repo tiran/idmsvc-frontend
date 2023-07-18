@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
 import { RegistryIcon } from '@patternfly/react-icons/dist/esm/icons/registry-icon';
 
@@ -23,7 +22,6 @@ import Section from '@redhat-cloud-services/frontend-components/Section';
  *
  */
 const DefaultPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {

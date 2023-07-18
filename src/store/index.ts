@@ -4,7 +4,8 @@ import notificationsMiddleware from '@redhat-cloud-services/frontend-components-
 import ReducerRegistry from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 import { Middleware } from 'redux';
 
-export let registry: ReducerRegistry<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export let registry: ReducerRegistry<any>; // FIXME Avoid any
 
 export function init(...middleware: Middleware[]) {
   registry = getRegistry({}, [promiseMiddleware, notificationsMiddleware({ errorDescriptionKey: ['detail', 'stack'] }), ...middleware]);
