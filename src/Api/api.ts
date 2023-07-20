@@ -451,33 +451,33 @@ export interface HostConfIpa {
   cabundle: string;
   /**
    * List of auto-enrollment enabled servers for this domain.
-   * @type {Array<HostConfIpaEnrollmentServersInner>}
+   * @type {Array<HostConfIpaServer>}
    * @memberof HostConfIpa
    */
-  enrollment_servers?: Array<HostConfIpaEnrollmentServersInner>;
+  enrollment_servers: Array<HostConfIpaServer>;
   /**
    * A Kerberos realm name (usually all upper-case domain name)
    * @type {string}
    * @memberof HostConfIpa
    */
-  realm_name?: string;
+  realm_name: string;
 }
 /**
- *
+ * Auto-enrollment enabled server for this domain.
  * @export
- * @interface HostConfIpaEnrollmentServersInner
+ * @interface HostConfIpaServer
  */
-export interface HostConfIpaEnrollmentServersInner {
+export interface HostConfIpaServer {
   /**
    * A host\'s Fully Qualified Domain Name (all lower-case).
    * @type {string}
-   * @memberof HostConfIpaEnrollmentServersInner
+   * @memberof HostConfIpaServer
    */
   fqdn: string;
   /**
    * A location identifier (lower-case DNS label)
    * @type {string}
-   * @memberof HostConfIpaEnrollmentServersInner
+   * @memberof HostConfIpaServer
    */
   location?: string;
 }
@@ -512,17 +512,11 @@ export interface HostConfResponseSchema {
    */
   domain_type: DomainType;
   /**
-   * A Host-Based Inventory ID of a host.
-   * @type {string}
-   * @memberof HostConfResponseSchema
-   */
-  inventory_id: string;
-  /**
    *
-   * @type {HostConfResponseSchemaRhelIdm}
+   * @type {HostConfIpa}
    * @memberof HostConfResponseSchema
    */
-  'rhel-idm': HostConfResponseSchemaRhelIdm;
+  'rhel-idm': HostConfIpa;
   /**
    * A serialized JWS token or JWT to authenticate a host registration request.
    * @type {string}
@@ -531,31 +525,6 @@ export interface HostConfResponseSchema {
   token?: string;
 }
 
-/**
- *
- * @export
- * @interface HostConfResponseSchemaRhelIdm
- */
-export interface HostConfResponseSchemaRhelIdm {
-  /**
-   * A string of concatenated, PEM-encoded X.509 certificates
-   * @type {string}
-   * @memberof HostConfResponseSchemaRhelIdm
-   */
-  cabundle: string;
-  /**
-   * List of auto-enrollment enabled servers for this domain.
-   * @type {Array<HostConfIpaEnrollmentServersInner>}
-   * @memberof HostConfResponseSchemaRhelIdm
-   */
-  enrollment_servers: Array<HostConfIpaEnrollmentServersInner>;
-  /**
-   * A Kerberos realm name (usually all upper-case domain name)
-   * @type {string}
-   * @memberof HostConfResponseSchemaRhelIdm
-   */
-  realm_name: string;
-}
 /**
  * The data listed for the domains.
  * @export
