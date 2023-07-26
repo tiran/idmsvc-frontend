@@ -1,31 +1,35 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: hmsidm
+  name: idmsvc
 objects:
   - apiVersion: cloud.redhat.com/v1alpha1
     kind: Frontend
     metadata:
-      name: hmsidm
+      name: ${APP_NAME}
     spec:
       envName: ${ENV_NAME}
-      title: Domains
-      deploymentRepo: TBD
+      title: "Directory & Domain Services"
+      deploymentRepo: https://gitlab.cee.redhat.com/identity-management/idmocp/idm-domains-frontend
+      API:
+        versions:
+          - v1
       frontend:
         paths:
-          - /apps/hmsidm
+          - /apps/${APP_NAME}
       image: ${IMAGE}:${IMAGE_TAG}
       navItems: 
-      - appId: hmsidm
-        title: Domains
-        href: "/settings/hmsidm"
+        - appId: "${APP_NAME}"
+          title: "Directory & Domain Services"
+          href: "/settings/${APP_NAME}"
+          product: "Domain"
       module:
-        manifestLocation: "/apps/hmsidm/fed-mods.json"
+        manifestLocation: "/apps/${APP_NAME}/fed-mods.json"
         modules:
-          - id: "hmsidm"
+          - id: "${APP_NAME}"
             module: "./RootApp"
             routes: 
-            - pathname: "/settings/hmsidm"
+            - pathname: "/settings/${APP_NAME}"
 
 parameters:
   - name: ENV_NAME
@@ -34,3 +38,5 @@ parameters:
     required: true
   - name: IMAGE
     value: TBD
+  - name: APP_NAME
+    value: idmsvc

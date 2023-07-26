@@ -1,5 +1,5 @@
 module.exports = {
-  appUrl: ['/settings/hmsidm'],
+  appUrl: ['/settings/idmsvc'],
   debug: true,
   useProxy: true,
   useCloud: false,
@@ -16,9 +16,9 @@ module.exports = {
   _unstableHotReload: process.env.HOT === 'true',
   routes: {
     /* Add routes to the backend  */
-    '/api/hmsidm/': { host: 'http://localhost:8000' },
-    '/beta/api/hmsidm/': { host: 'http://localhost:8000' },
-    '/preview/api/hmsidm/': { host: 'http://localhost:8000' },
+    '/api/idmsvc/': { host: 'http://localhost:8000' },
+    '/beta/api/idmsvc/': { host: 'http://localhost:8000' },
+    '/preview/api/idmsvc/': { host: 'http://localhost:8000' },
 
     /* Add routes to the chrome-service*/
     '/api/chrome-service/v1/static/': { host: 'http://localhost:9999' },

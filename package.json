@@ -1,5 +1,5 @@
 {
-  "name": "hmsidm",
+  "name": "idmsvc",
   "version": "0.0.1",
   "private": false,
   "engines": {
@@ -72,6 +72,6 @@
     "webpack-bundle-analyzer": "4.4.2"
   },
   "insights": {
-    "appname": "hmsidm"
+    "appname": "idmsvc"
   }
 }
