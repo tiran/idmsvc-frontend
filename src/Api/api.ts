@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * hmsidm-backend
- * Backend API for hmsidm service
+ * idmsvc-backend
+ * Backend API for Directory & Domain Services
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -264,10 +264,10 @@ export interface DomainIpa {
   ca_certs: Array<Certificate>;
   /**
    * List of allowed locations
-   * @type {Array<DomainIpaLocationsInner>}
+   * @type {Array<Location>}
    * @memberof DomainIpa
    */
-  locations?: Array<DomainIpaLocationsInner>;
+  locations: Array<Location>;
   /**
    * List of realm associated to the IPA domain.
    * @type {Array<string>}
@@ -280,25 +280,6 @@ export interface DomainIpa {
    * @memberof DomainIpa
    */
   realm_name: string;
-}
-/**
- *
- * @export
- * @interface DomainIpaLocationsInner
- */
-export interface DomainIpaLocationsInner {
-  /**
-   * A location identifier (lower-case DNS label)
-   * @type {string}
-   * @memberof DomainIpaLocationsInner
-   */
-  name: string;
-  /**
-   *
-   * @type {string}
-   * @memberof DomainIpaLocationsInner
-   */
-  description?: string;
 }
 /**
  * Server schema for an entry into the Ipa domain type.
@@ -399,7 +380,7 @@ export interface ErrorInfo {
   status: string;
 }
 /**
- * General error response returned by the hmsidm API
+ * General error response returned by the idmsvc API
  * @export
  * @interface Errors
  */
@@ -593,6 +574,25 @@ export interface ListDomainsResponseSchema {
    * @memberof ListDomainsResponseSchema
    */
   meta: PaginationMeta;
+}
+/**
+ * RHEL IdM server location
+ * @export
+ * @interface Location
+ */
+export interface Location {
+  /**
+   * A location identifier (lower-case DNS label)
+   * @type {string}
+   * @memberof Location
+   */
+  name: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Location
+   */
+  description?: string;
 }
 /**
  * Represent the navigation links for the data paginated.

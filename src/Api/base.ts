@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * hmsidm-backend
- * Backend API for hmsidm service
+ * idmsvc-backend
+ * Backend API for Directory & Domain Services
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -18,7 +18,7 @@ import type { Configuration } from './configuration';
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 
-export const BASE_PATH = '/api/hmsidm/v1'.replace(/\/+$/, '');
+export const BASE_PATH = '/api/idmsvc/v1'.replace(/\/+$/, '');
 
 /**
  *

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * hmsidm-backend
- * Backend API for hmsidm service
+ * idmsvc-backend
+ * Backend API for Directory & Domain Services
  *
  * The version of the OpenAPI document: 1.0.0
  *
