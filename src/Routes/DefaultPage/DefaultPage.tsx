@@ -30,10 +30,7 @@ const DefaultPage = () => {
     insights?.chrome?.appAction?.('default-page');
   }, []);
 
-  const handleOpenLearnAbout = () => {
-    // FIXME Update the URL with the location for docs
-    window.open('https://access.redhat.com/articles/1586893', '_blank');
-  };
+  const linkLearnMoreAbout = 'https://access.redhat.com/articles/1586893';
 
   const handleOpenWizard = () => {
     navigate('/domains/wizard', { replace: true });
@@ -45,8 +42,8 @@ const DefaultPage = () => {
         <PageHeaderTitle title="Domain Registry" />
         <p>
           Manage registered domains to leverage host access controls from your existing identity and access management.{' '}
-          <Button variant="link" icon={<ExternalLinkAltIcon />} iconPosition="right" onClick={handleOpenLearnAbout}>
-            Learn more about the domain registry
+          <Button component="a" target="_blank" variant="link" isInline icon={<ExternalLinkAltIcon />} iconPosition="right" href={linkLearnMoreAbout}>
+            Learn more about the domain registry.
           </Button>
         </p>
       </PageHeader>

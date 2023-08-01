@@ -31,10 +31,8 @@ const WizardPage = () => {
     insights?.chrome?.appAction?.('default-page');
   }, []);
 
-  const onLearnAboutClick = () => {
-    // FIXME Update the URL with the location for docs
-    window.open('https://access.redhat.com/articles/1586893', '_blank');
-  };
+  // FIXME Update the URL with the location for docs
+  const linkLearnMoreAbout = 'https://access.redhat.com/articles/1586893';
 
   // Event when Close button is clicked
   const onCloseClick = () => {
@@ -121,7 +119,15 @@ const WizardPage = () => {
           <PageHeaderTitle title={title} />
           <p>
             Add a domain to the registry.{' '}
-            <Button variant="link" icon={<ExternalLinkAltIcon />} iconPosition="right" onClick={onLearnAboutClick}>
+            <Button
+              component="a"
+              target="_blank"
+              variant="link"
+              isInline
+              icon={<ExternalLinkAltIcon />}
+              iconPosition="right"
+              href={linkLearnMoreAbout}
+            >
               Learn more about the domain registry.
             </Button>
           </p>
