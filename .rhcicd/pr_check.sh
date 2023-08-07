@@ -16,7 +16,7 @@ COMMON_BUILDER="https://raw.githubusercontent.com/RedHatInsights/insights-fronte
 # --------------------------------------------
 # Options that must be configured by app owner
 # --------------------------------------------
-IQE_PLUGINS="${COMPONENT}"
+IQE_PLUGINS="idm"
 IQE_MARKER_EXPRESSION="smoke"
 IQE_FILTER_EXPRESSION=""
 
