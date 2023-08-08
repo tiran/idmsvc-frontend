@@ -393,7 +393,7 @@ export interface Errors {
   errors: Array<ErrorInfo>;
 }
 /**
- * Represent the request payload for the /hostconf/:fqdn endpoint.
+ * Represent the request payload for the /host-conf/:inventory_id/:fqdn endpoint.
  * @export
  * @interface HostConf
  */
@@ -865,18 +865,29 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
     /**
      * Action to retrieve the host information for the host vm being enrolled.
      * @summary Get host vm information.
+     * @param {string} inventoryId A Host-Based Inventory ID of the host.
      * @param {string} fqdn The full qualified domain name of the host.
      * @param {HostConf} hostConf Required information to take the action.
      * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    hostConf: async (fqdn: string, hostConf: HostConf, xRhInsightsRequestId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    hostConf: async (
+      inventoryId: string,
+      fqdn: string,
+      hostConf: HostConf,
+      xRhInsightsRequestId?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'inventoryId' is not null or undefined
+      assertParamExists('hostConf', 'inventoryId', inventoryId);
       // verify required parameter 'fqdn' is not null or undefined
       assertParamExists('hostConf', 'fqdn', fqdn);
       // verify required parameter 'hostConf' is not null or undefined
       assertParamExists('hostConf', 'hostConf', hostConf);
-      const localVarPath = `/host-conf/{fqdn}`.replace(`{${'fqdn'}}`, encodeURIComponent(String(fqdn)));
+      const localVarPath = `/host-conf/{inventory_id}/{fqdn}`
+        .replace(`{${'inventory_id'}}`, encodeURIComponent(String(inventoryId)))
+        .replace(`{${'fqdn'}}`, encodeURIComponent(String(fqdn)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1048,6 +1059,7 @@ export const ActionsApiFp = function (configuration?: Configuration) {
     /**
      * Action to retrieve the host information for the host vm being enrolled.
      * @summary Get host vm information.
+     * @param {string} inventoryId A Host-Based Inventory ID of the host.
      * @param {string} fqdn The full qualified domain name of the host.
      * @param {HostConf} hostConf Required information to take the action.
      * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
@@ -1055,12 +1067,13 @@ export const ActionsApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async hostConf(
+      inventoryId: string,
       fqdn: string,
       hostConf: HostConf,
       xRhInsightsRequestId?: string,
       options?: AxiosRequestConfig
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HostConfResponseSchema>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.hostConf(fqdn, hostConf, xRhInsightsRequestId, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hostConf(inventoryId, fqdn, hostConf, xRhInsightsRequestId, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1125,14 +1138,21 @@ export const ActionsApiFactory = function (configuration?: Configuration, basePa
     /**
      * Action to retrieve the host information for the host vm being enrolled.
      * @summary Get host vm information.
+     * @param {string} inventoryId A Host-Based Inventory ID of the host.
      * @param {string} fqdn The full qualified domain name of the host.
      * @param {HostConf} hostConf Required information to take the action.
      * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    hostConf(fqdn: string, hostConf: HostConf, xRhInsightsRequestId?: string, options?: any): AxiosPromise<HostConfResponseSchema> {
-      return localVarFp.hostConf(fqdn, hostConf, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
+    hostConf(
+      inventoryId: string,
+      fqdn: string,
+      hostConf: HostConf,
+      xRhInsightsRequestId?: string,
+      options?: any
+    ): AxiosPromise<HostConfResponseSchema> {
+      return localVarFp.hostConf(inventoryId, fqdn, hostConf, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
     },
     /**
      * Use the one time use token to update the initial information for a rhel-idm domain.
@@ -1183,6 +1203,7 @@ export class ActionsApi extends BaseAPI {
   /**
    * Action to retrieve the host information for the host vm being enrolled.
    * @summary Get host vm information.
+   * @param {string} inventoryId A Host-Based Inventory ID of the host.
    * @param {string} fqdn The full qualified domain name of the host.
    * @param {HostConf} hostConf Required information to take the action.
    * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
@@ -1190,9 +1211,9 @@ export class ActionsApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ActionsApi
    */
-  public hostConf(fqdn: string, hostConf: HostConf, xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
+  public hostConf(inventoryId: string, fqdn: string, hostConf: HostConf, xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
     return ActionsApiFp(this.configuration)
-      .hostConf(fqdn, hostConf, xRhInsightsRequestId, options)
+      .hostConf(inventoryId, fqdn, hostConf, xRhInsightsRequestId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

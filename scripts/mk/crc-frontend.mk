@@ -47,5 +47,5 @@ generate-api: $(NODE_BIN)/openapi-generator-cli $(NODE_BIN)/prettier $(PUBLIC_OP
 
 .PHONY: update-api
 update-api:
-	git submodule update --remote
+	git submodule update --init --remote
 	$(MAKE) generate-api
