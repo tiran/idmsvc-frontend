@@ -1,54 +1,11 @@
-import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
+import { ActionsColumn, IAction, TableComposable, Tbody, Td, Th, ThProps, Thead, Tr } from '@patternfly/react-table';
 import './DomainList.scss';
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import React from 'react';
-import { Button } from '@patternfly/react-core';
-import AngleRightIcon from '@patternfly/react-icons/dist/esm/icons/angle-right-icon';
-import AngleDownIcon from '@patternfly/react-icons/dist/esm/icons/angle-down-icon';
 
-export interface RhelIdmCaCert {
-  issuer: string;
-  nickname: string;
-  not_after: Date;
-  not_before: Date;
-  pem: string;
-  serial_number: string;
-  subject: string;
-}
-
-export type RhelIdmRealmDomains = string;
-
-export interface RhelIdmServer {
-  ca_server: boolean;
-  fqdn: string;
-  hcc_enrollment_server: boolean;
-  hcc_update_server: boolean;
-  location?: string | undefined;
-  pkinit_server: boolean;
-  subscription_manager_id: string;
-}
-
-export interface RhelIdm {
-  ca_certs: RhelIdmCaCert[];
-  realm_domains: RhelIdmRealmDomains[];
-  realm_name: string;
-  servers: RhelIdmServer[];
-}
-
-/**
- * Define the supported domain types.
- */
-export type DomainType = 'rhel-idm';
-
-export interface Domain {
-  domain_id: string;
-  domain_name: string;
-  auto_enrollment_enabled: boolean;
-  title: string;
-  description: string;
-  domain_type: DomainType;
-  rhel_idm: RhelIdm;
-}
+import { Domain, DomainType } from '../../Api/api';
+import { Link } from 'react-router-dom';
+import { AppContext, IAppContext } from '../../AppContext';
 
 export interface IColumnType<T> {
   key: string;
@@ -58,97 +15,193 @@ export interface IColumnType<T> {
 }
 
 export interface DomainListProps {
-  data: Domain[];
+  domains: Domain[];
 }
 
 export interface DomainProps {
-  data: Domain;
+  domain: Domain;
 }
 
 /**
- * This represent the table header displayed for the DomainList.
- * @returns The table header for the DomainList component.
+ * Since OnSort specifies sorted columns by index, we need sortable values
+ * for our object by column index.
+ * @param domain the domain
+ * @returns an array with the indexable fields for comparing.
  */
-const DomainListHead: React.FC = () => {
-  return (
-    <Thead>
-      <Tr>
-        <Th>Name</Th>
-        <Th>UUID</Th>
-        <Th>Allow host domain join</Th>
-      </Tr>
-    </Thead>
-  );
+const getSortableRowValues = (domain: Domain): (string | boolean)[] => {
+  const status = 'Available';
+  const { domain_type } = domain;
+  let { title, auto_enrollment_enabled } = domain;
+  if (title === undefined) {
+    title = '';
+  }
+  if (auto_enrollment_enabled === undefined) {
+    auto_enrollment_enabled = false;
+  }
+  return [title, domain_type, status, auto_enrollment_enabled];
 };
 
-/**
- * This represent the table header displayed for the DomainList.
- * @returns The table header for the DomainList component.
- */
-const TrDomainDetail: React.FC<DomainProps> = (props) => {
-  const [domain] = useState<Domain>(props.data);
+type fnCompareRows = (a: Domain, b: Domain) => number;
 
-  switch (domain.domain_type) {
+/**
+ * Create an arrow function to compare rows when sorting the table
+ * content for the list of domains.
+ * @param activeSortIndex the index for the sorting column.
+ * @param activeSortDirection the direction for sorting the rows.
+ * @returns a lambda function that sort data by the selected criteria.
+ */
+function createCompareRows(activeSortIndex: number, activeSortDirection: 'asc' | 'desc' | undefined): fnCompareRows {
+  return (a: Domain, b: Domain) => {
+    const aValue = getSortableRowValues(a)[activeSortIndex];
+    const bValue = getSortableRowValues(b)[activeSortIndex];
+    if (aValue === bValue) {
+      return 0;
+    }
+    if (typeof aValue === 'undefined') {
+      if (activeSortDirection === 'asc') {
+        return -1;
+      }
+      return +1;
+    }
+    if (typeof bValue === 'undefined') {
+      if (activeSortDirection === 'asc') {
+        return +1;
+      }
+      return -1;
+    }
+
+    if (typeof aValue === 'string') {
+      // String sort
+      if (activeSortDirection === 'asc') {
+        return (aValue as string).localeCompare(bValue as string);
+      }
+      return (bValue as string).localeCompare(aValue as string);
+    } else if (typeof aValue === 'boolean') {
+      // Boolean sort
+      if (activeSortDirection === 'asc') {
+        if ((!aValue as boolean) && (bValue as boolean)) {
+          return -1;
+        }
+        if ((aValue as boolean) && (!bValue as boolean)) {
+          return +1;
+        }
+        return 0;
+      }
+    }
+    return 0;
+  };
+}
+
+const DomainListFieldType: React.FC<{ domain_type: DomainType }> = (props) => {
+  switch (props.domain_type) {
     case 'rhel-idm':
-      return (
-        <>
-          {domain.rhel_idm.servers.map((server) => {
-            return (
-              <Tr key={domain.domain_id + server.fqdn}>
-                <Td>{server.fqdn}</Td>
-                <Td colSpan={2}>{server.subscription_manager_id}</Td>
-              </Tr>
-            );
-          })}
-        </>
-      );
+      return <>RHEL IdM/IPA</>;
     default:
-      return <></>;
+      return <>{props.domain_type}: Not supported</>;
   }
 };
 
-const DomainListBody: React.FC<DomainListProps> = (props) => {
-  const [domains] = useState<Domain[]>(props.data);
-  const [expandDomain, setExpandDomain] = useState<boolean>(false);
+const DomainListFieldStatus: React.FC<{ domain: Domain }> = (props) => {
+  // TODO TBD Which values to return and logic for them
+  if (props.domain.domain_id === undefined || props.domain.domain_id === null) {
+    return <>Unavailable</>;
+  } else {
+    return <>Available</>;
+  }
+};
+
+export const DomainList: React.FC = () => {
+  const context = useContext<IAppContext>(AppContext);
+
+  // Index of the currently sorted column
+  // Note: if you intend to make columns reorderable, you may instead want to use a non-numeric key
+  // as the identifier of the sorted column. See the "Compound expandable" example.
+  const [activeSortIndex, setActiveSortIndex] = React.useState<number>(-1);
+
+  // Sort direction of the currently sorted column
+  const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc'>('asc');
+
+  const [domains] = useState<Domain[]>(context.domains);
   const enabledText = 'Enabled';
   const disabledText = 'Disabled';
 
-  const toggleExpandDomain = () => {
-    setExpandDomain(!expandDomain);
-  };
+  const getSortParams = (columnIndex: number): ThProps['sort'] => ({
+    sortBy: {
+      index: activeSortIndex,
+      direction: activeSortDirection,
+      defaultDirection: 'asc', // starting sort direction when first sorting a column. Defaults to 'asc'
+    },
+    onSort: (_event, index, direction) => {
+      setActiveSortIndex(index);
+      setActiveSortDirection(direction);
+    },
+    columnIndex,
+  });
+
+  const defaultActions = (domain: Domain): IAction[] => [
+    {
+      title: 'Enable/Disable',
+      onClick: () => console.log(`clicked on Enable/Disable, on row ${domain.title}`),
+    },
+    {
+      title: 'Edit',
+      onClick: () => console.log(`clicked on Edit, on row ${domain.title}`),
+    },
+    {
+      title: 'Delete',
+      onClick: () => console.log(`clicked on Delete, on row ${domain.title}`),
+    },
+  ];
+
+  // Note that we perform the sort as part of the component's render logic and not in onSort.
+  // We shouldn't store the list of data in state because we don't want to have to sync that with props.
+  if (activeSortIndex !== null) {
+    domains.sort(createCompareRows(activeSortIndex, activeSortDirection));
+  }
 
   return (
-    <Tbody>
-      {domains.map((domain) => {
-        return (
-          <>
-            <Tr key={domain.domain_id}>
-              <Td colSpan={2}>
-                <Button variant="plain" onClick={toggleExpandDomain}>
-                  {expandDomain && <AngleDownIcon />}
-                  {expandDomain || <AngleRightIcon />}
-                </Button>
-                {domain.domain_name}
-              </Td>
-              <Td>{domain.auto_enrollment_enabled ? enabledText : disabledText}</Td>
-            </Tr>
-            {expandDomain && <TrDomainDetail data={domain} />}
-          </>
-        );
-      })}
-    </Tbody>
-  );
-};
-
-const DomainList: React.FC<DomainListProps> = (props) => {
-  const [domains] = useState<Domain[]>(props.data);
-  return (
-    <Fragment>
-      <TableComposable aria-label="Simple table">
-        <DomainListHead />
-        <DomainListBody data={domains} />
+    <>
+      <TableComposable>
+        <Thead>
+          <Tr>
+            <Th sort={getSortParams(0)}>Name</Th>
+            <Th>Type</Th>
+            <Th>Status</Th>
+            <Th sort={getSortParams(3)}>Host domain join on launch</Th>
+            <Th></Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {domains.map((domain) => {
+            const rowActions: IAction[] | null = defaultActions(domain);
+            if (domain.auto_enrollment_enabled === true) {
+              rowActions[0].title = 'Disable';
+            } else {
+              rowActions[0].title = 'Enable';
+            }
+            return (
+              <>
+                <Tr key={domain.domain_id}>
+                  <Td>
+                    <Link to="/domains/{domain.domain_id}">{domain.title}</Link>
+                  </Td>
+                  <Td>
+                    <DomainListFieldType domain_type={domain.domain_type} />
+                  </Td>
+                  <Td>
+                    <DomainListFieldStatus domain={domain} />
+                  </Td>
+                  <Td>{domain.auto_enrollment_enabled ? enabledText : disabledText}</Td>
+                  <Td isActionCell>
+                    <ActionsColumn items={rowActions} />
+                  </Td>
+                </Tr>
+              </>
+            );
+          })}
+        </Tbody>
       </TableComposable>
-    </Fragment>
+    </>
   );
 };
 

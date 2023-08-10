@@ -7,7 +7,7 @@ import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-com
 
 import './WizardPage.scss';
 import { useNavigate } from 'react-router-dom';
-import { Domain } from '../../Components/DomainList/DomainList';
+import { Domain } from '../../Api/api';
 
 // Lazy load for the wizard pages
 const Page1 = React.lazy(() => import('./Components/Page1/Page1'));
@@ -22,11 +22,12 @@ const initialDomain: Domain = {
   title: 'My Domain',
   description: 'My Domain Description',
   domain_type: 'rhel-idm',
-  rhel_idm: {
+  'rhel-idm': {
     realm_name: '',
     realm_domains: [],
     ca_certs: [],
     servers: [],
+    locations: [],
   },
 };
 

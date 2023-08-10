@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { DescriptionList, DescriptionListDescription, DescriptionListGroup, DescriptionListTerm, Switch } from '@patternfly/react-core';
 
 import './Page4.scss';
-import DomainList, { Domain } from '../../../../Components/DomainList/DomainList';
+import { DomainList } from '../../../../Components/DomainList/DomainList';
+import { Domain } from '../../../../Api/api';
 
 const Page4: React.FC<{ data: Domain[] }> = (props) => {
   const [isHostJoinEnabled, setIsHostJoinEnabled] = React.useState(true);
@@ -47,7 +48,7 @@ const Page4: React.FC<{ data: Domain[] }> = (props) => {
             1-3 of 3 v &nbsp;&nbsp;&lt;&nbsp;&nbsp;&nbsp;&gt;
           </DescriptionListDescription>
         </DescriptionListGroup>
-        <DomainList data={domain}></DomainList>
+        <DomainList />
         <DescriptionListGroup>
           <DescriptionListTerm>Allow host domain join</DescriptionListTerm>
           <DescriptionListDescription>
