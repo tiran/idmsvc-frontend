@@ -51,6 +51,8 @@ make dev-static port=9999
 
 Update `config/dev.webpack.config.js` according to your application URL. [Read more](https://github.com/RedHatInsights/frontend-components/tree/master/packages/config#useproxy).
 
+See: [Contributing](./docs/CONTRIBUTING.md).
+
 ### Testing
 
 - Run unit tests by `make test`.

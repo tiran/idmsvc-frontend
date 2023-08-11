@@ -1,4 +1,4 @@
-# Create a view page
+# Create a page
 
 Let's add the Bar page.
 

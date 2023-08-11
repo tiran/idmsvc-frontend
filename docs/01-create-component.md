@@ -1,4 +1,20 @@
-# Create Foo component
+# Create a component
+
+- Is the component used only in the current page?
+
+  Yes: Then add the component to your src/Routes/MyPage/Components
+  directory.
+
+  No: Then add the component to your src/Components directory.
+
+  > This keep the components close to where they are used and the
+  > code organized.
+
+The next steps are for creating the Foo component in the case it
+is shared in different views; for a component used only in one page
+change `./src/Components` to `./src/Routes/*Page/Components`.
+
+---
 
 1. Create the directory for the component:
 
@@ -6,7 +22,7 @@
     mkdir -p src/Components/Foo
     ```
 
-1. Create the style-sheets file at `src/Components/Foo/foo.scss`:
+2. Create the style-sheets file at `src/Components/Foo/foo.scss`:
 
     ```typescript
     import "~@redhat-cloud-services/frontend-components-utilities/styles/variables";
@@ -18,7 +34,7 @@
     }
     ```
 
-1. Create the typescript code at `src/Components/Foo/foo.tsx`:
+3. Create the typescript code at `src/Components/Foo/foo.tsx`:
 
     ```typescript
     import './foo-component.scss';
@@ -38,7 +54,7 @@
     export default FooComponent;
     ```
 
-1. Create the unit test file for the component:
+4. Create the unit test file for the component:
 
     ```typescript
     import React from 'react';
@@ -54,4 +70,4 @@
     });
     ```
 
-1. Check the unit tests for your component by `npm run test`.
+5. Check the unit tests for your component by `npm run test`.
