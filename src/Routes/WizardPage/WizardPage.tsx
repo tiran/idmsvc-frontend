@@ -78,7 +78,7 @@ const WizardPage: React.FC = () => {
     {
       name: 'Review',
       // FIXME Pass here the 'registering.domain' field from the context
-      component: <Page4 data={[data]} />,
+      component: <Page4 data={data} />,
     },
   ];
 

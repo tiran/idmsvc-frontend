@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { DescriptionList, DescriptionListDescription, DescriptionListGroup, DescriptionListTerm, Switch } from '@patternfly/react-core';
 
 import './Page4.scss';
-import { DomainList } from '../../../../Components/DomainList/DomainList';
 import { Domain } from '../../../../Api/api';
+import DomainOverview from '../../Components/DomainOverview/DomainOverview';
 
-const Page4: React.FC<{ data: Domain[] }> = (props) => {
+const Page4: React.FC<{ data: Domain }> = (props) => {
   const [isHostJoinEnabled, setIsHostJoinEnabled] = React.useState(true);
-  const [domain] = useState<Domain[]>(props.data);
+  const [domain] = useState<Domain>(props.data);
 
   const onHostJoinEnabledChange = () => {
     setIsHostJoinEnabled(!isHostJoinEnabled);
@@ -29,17 +29,15 @@ const Page4: React.FC<{ data: Domain[] }> = (props) => {
       >
         <DescriptionListGroup>
           <DescriptionListTerm>Identity and access management solution</DescriptionListTerm>
-          <DescriptionListDescription>
-            {domain[0].domain_type === 'rhel-idm' && <div>Red Hat Enterprise Linux IdM/IPA</div>}
-          </DescriptionListDescription>
+          <DescriptionListDescription>{domain.domain_type === 'rhel-idm' && <div>Red Hat Enterprise Linux IdM/IPA</div>}</DescriptionListDescription>
         </DescriptionListGroup>
         <DescriptionListGroup>
           <DescriptionListTerm>Name</DescriptionListTerm>
-          <DescriptionListDescription>{domain[0].title}</DescriptionListDescription>
+          <DescriptionListDescription>{domain.title}</DescriptionListDescription>
         </DescriptionListGroup>
         <DescriptionListGroup>
           <DescriptionListTerm>Description</DescriptionListTerm>
-          <DescriptionListDescription>{domain[0].description}</DescriptionListDescription>
+          <DescriptionListDescription>{domain.description}</DescriptionListDescription>
         </DescriptionListGroup>
         <DescriptionListGroup>
           <DescriptionListTerm>DNS Domain/Servers</DescriptionListTerm>
@@ -48,7 +46,7 @@ const Page4: React.FC<{ data: Domain[] }> = (props) => {
             1-3 of 3 v &nbsp;&nbsp;&lt;&nbsp;&nbsp;&nbsp;&gt;
           </DescriptionListDescription>
         </DescriptionListGroup>
-        <DomainList />
+        <DomainOverview domain={domain} />
         <DescriptionListGroup>
           <DescriptionListTerm>Allow host domain join</DescriptionListTerm>
           <DescriptionListDescription>
