@@ -95,7 +95,7 @@ function createCompareRows(activeSortIndex: number, activeSortDirection: 'asc' |
 const DomainListFieldType: React.FC<{ domain_type: DomainType }> = (props) => {
   switch (props.domain_type) {
     case 'rhel-idm':
-      return <>RHEL IdM/IPA</>;
+      return <>RHEL IdM</>;
     default:
       return <>{props.domain_type}: Not supported</>;
   }
