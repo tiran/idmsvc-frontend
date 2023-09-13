@@ -85,112 +85,6 @@ export interface Certificate {
 /**
  * A domain resource
  * @export
- * @interface CreateDomain
- */
-export interface CreateDomain {
-  /**
-   * the title for the entry
-   * @type {string}
-   * @memberof CreateDomain
-   */
-  title: string;
-  /**
-   * Human readable description for this domain.
-   * @type {string}
-   * @memberof CreateDomain
-   */
-  description: string;
-  /**
-   * Enable or disable host vm auto-enrollment for this domain
-   * @type {boolean}
-   * @memberof CreateDomain
-   */
-  auto_enrollment_enabled: boolean;
-  /**
-   *
-   * @type {DomainType}
-   * @memberof CreateDomain
-   */
-  domain_type: DomainType;
-}
-
-/**
- * Options for ipa domains
- * @export
- * @interface CreateDomainIpa
- */
-export interface CreateDomainIpa {
-  /**
-   * List of auto-enrollment enabled servers for this domain.
-   * @type {Array<CreateDomainIpaServer>}
-   * @memberof CreateDomainIpa
-   */
-  servers?: Array<CreateDomainIpaServer>;
-  /**
-   * A base64 representation of all the list of chain of certificates, including the server ca.
-   * @type {Array<Certificate>}
-   * @memberof CreateDomainIpa
-   */
-  ca_certs: Array<Certificate>;
-  /**
-   * TODO What is the meaning of this field.
-   * @type {Array<string>}
-   * @memberof CreateDomainIpa
-   */
-  realm_domains: Array<string>;
-  /**
-   * A Kerberos realm name (usually all upper-case domain name)
-   * @type {string}
-   * @memberof CreateDomainIpa
-   */
-  realm_name: string;
-}
-/**
- * Server schema for an entry into the Ipa domain type
- * @export
- * @interface CreateDomainIpaServer
- */
-export interface CreateDomainIpaServer {
-  /**
-   *
-   * @type {boolean}
-   * @memberof CreateDomainIpaServer
-   */
-  ca_server: boolean;
-  /**
-   * A host\'s Fully Qualified Domain Name (all lower-case).
-   * @type {string}
-   * @memberof CreateDomainIpaServer
-   */
-  fqdn: string;
-  /**
-   *
-   * @type {boolean}
-   * @memberof CreateDomainIpaServer
-   */
-  hcc_enrollment_server: boolean;
-  /**
-   *
-   * @type {boolean}
-   * @memberof CreateDomainIpaServer
-   */
-  hcc_update_server: boolean;
-  /**
-   *
-   * @type {boolean}
-   * @memberof CreateDomainIpaServer
-   */
-  pkinit_server: boolean;
-  /**
-   * A Red Hat Subcription Manager ID of a RHEL host.
-   * @type {string}
-   * @memberof CreateDomainIpaServer
-   */
-  subscription_manager_id: string;
-}
-/**
- * A domain resource
- * @export
  * @interface Domain
  */
 export interface Domain {
@@ -236,12 +130,6 @@ export interface Domain {
    * @memberof Domain
    */
   'rhel-idm'?: DomainIpa;
-  /**
-   *
-   * @type {SigningKeys}
-   * @memberof Domain
-   */
-  signing_keys?: SigningKeys;
 }
 
 /**
@@ -331,6 +219,152 @@ export interface DomainIpaServer {
   subscription_manager_id?: string;
 }
 /**
+ * A domain registration response
+ * @export
+ * @interface DomainRegToken
+ */
+export interface DomainRegToken {
+  /**
+   * A domain id
+   * @type {string}
+   * @memberof DomainRegToken
+   */
+  domain_id: string;
+  /**
+   * A domain registration token string
+   * @type {string}
+   * @memberof DomainRegToken
+   */
+  domain_token: string;
+  /**
+   *
+   * @type {DomainType}
+   * @memberof DomainRegToken
+   */
+  domain_type: DomainType;
+  /**
+   * Expiration time stamp (Unix timestamp)
+   * @type {number}
+   * @memberof DomainRegToken
+   */
+  expiration: number;
+}
+
+/**
+ * A domain registration request
+ * @export
+ * @interface DomainRegTokenRequest
+ */
+export interface DomainRegTokenRequest {
+  /**
+   *
+   * @type {DomainType}
+   * @memberof DomainRegTokenRequest
+   */
+  domain_type: DomainType;
+}
+
+/**
+ * TODO
+ * @export
+ * @interface DomainRegisterResponse
+ */
+export interface DomainRegisterResponse {
+  /**
+   * Title to describe the domain.
+   * @type {string}
+   * @memberof DomainRegisterResponse
+   */
+  title?: string;
+  /**
+   * Human readable description abou the domain.
+   * @type {string}
+   * @memberof DomainRegisterResponse
+   */
+  description?: string;
+  /**
+   * Enable or disable host vm auto-enrollment for this domain
+   * @type {boolean}
+   * @memberof DomainRegisterResponse
+   */
+  auto_enrollment_enabled?: boolean;
+  /**
+   * A domain id
+   * @type {string}
+   * @memberof DomainRegisterResponse
+   */
+  domain_id: string;
+  /**
+   * A name of a domain (all lower-case)
+   * @type {string}
+   * @memberof DomainRegisterResponse
+   */
+  domain_name: string;
+  /**
+   *
+   * @type {DomainType}
+   * @memberof DomainRegisterResponse
+   */
+  domain_type: DomainType;
+  /**
+   *
+   * @type {DomainIpa}
+   * @memberof DomainRegisterResponse
+   */
+  'rhel-idm'?: DomainIpa;
+}
+
+/**
+ * A domain resource
+ * @export
+ * @interface DomainResponse
+ */
+export interface DomainResponse {
+  /**
+   * Title to describe the domain.
+   * @type {string}
+   * @memberof DomainResponse
+   */
+  title?: string;
+  /**
+   * Human readable description abou the domain.
+   * @type {string}
+   * @memberof DomainResponse
+   */
+  description?: string;
+  /**
+   * Enable or disable host vm auto-enrollment for this domain
+   * @type {boolean}
+   * @memberof DomainResponse
+   */
+  auto_enrollment_enabled: boolean;
+  /**
+   * A domain id
+   * @type {string}
+   * @memberof DomainResponse
+   */
+  domain_id: string;
+  /**
+   * A name of a domain (all lower-case)
+   * @type {string}
+   * @memberof DomainResponse
+   */
+  domain_name: string;
+  /**
+   *
+   * @type {DomainType}
+   * @memberof DomainResponse
+   */
+  domain_type: DomainType;
+  /**
+   *
+   * @type {DomainIpa}
+   * @memberof DomainResponse
+   */
+  'rhel-idm'?: DomainIpa;
+}
+
+/**
  * Type of domain (currently only rhel-idm)
  * @export
  * @enum {string}
@@ -341,6 +375,56 @@ export const DomainType = {
 } as const;
 
 export type DomainType = (typeof DomainType)[keyof typeof DomainType];
+
+/**
+ * TODO
+ * @export
+ * @interface DomainUpdateResponse
+ */
+export interface DomainUpdateResponse {
+  /**
+   * Title to describe the domain.
+   * @type {string}
+   * @memberof DomainUpdateResponse
+   */
+  title?: string;
+  /**
+   * Human readable description abou the domain.
+   * @type {string}
+   * @memberof DomainUpdateResponse
+   */
+  description?: string;
+  /**
+   * Enable or disable host vm auto-enrollment for this domain
+   * @type {boolean}
+   * @memberof DomainUpdateResponse
+   */
+  auto_enrollment_enabled: boolean;
+  /**
+   * A domain id
+   * @type {string}
+   * @memberof DomainUpdateResponse
+   */
+  domain_id?: string;
+  /**
+   * A name of a domain (all lower-case)
+   * @type {string}
+   * @memberof DomainUpdateResponse
+   */
+  domain_name: string;
+  /**
+   *
+   * @type {DomainType}
+   * @memberof DomainUpdateResponse
+   */
+  domain_type: DomainType;
+  /**
+   *
+   * @type {DomainIpa}
+   * @memberof DomainUpdateResponse
+   */
+  'rhel-idm'?: DomainIpa;
+}
 
 /**
  *
@@ -653,207 +737,122 @@ export interface PaginationMeta {
 /**
  * A domain resource
  * @export
- * @interface RegisterDomain
+ * @interface RegisterDomainRequest
  */
-export interface RegisterDomain {
+export interface RegisterDomainRequest {
   /**
    * Title to describe the domain.
    * @type {string}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   title?: string;
   /**
    * Human readable description abou the domain.
    * @type {string}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   description?: string;
   /**
    * Enable or disable host vm auto-enrollment for this domain
    * @type {boolean}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   auto_enrollment_enabled?: boolean;
   /**
    * A domain id
    * @type {string}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   domain_id?: string;
   /**
    * A name of a domain (all lower-case)
    * @type {string}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   domain_name: string;
   /**
    *
    * @type {DomainType}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   domain_type: DomainType;
   /**
    *
    * @type {DomainIpa}
-   * @memberof RegisterDomain
+   * @memberof RegisterDomainRequest
    */
   'rhel-idm'?: DomainIpa;
-  /**
-   *
-   * @type {SigningKeys}
-   * @memberof RegisterDomain
-   */
-  signing_keys?: SigningKeys;
 }
 
-/**
- * A domain resource
- * @export
- * @interface ResponseDomain
- */
-export interface ResponseDomain {
-  /**
-   * Title to describe the domain.
-   * @type {string}
-   * @memberof ResponseDomain
-   */
-  title?: string;
-  /**
-   * Human readable description abou the domain.
-   * @type {string}
-   * @memberof ResponseDomain
-   */
-  description?: string;
-  /**
-   * Enable or disable host vm auto-enrollment for this domain
-   * @type {boolean}
-   * @memberof ResponseDomain
-   */
-  auto_enrollment_enabled?: boolean;
-  /**
-   * A domain id
-   * @type {string}
-   * @memberof ResponseDomain
-   */
-  domain_id?: string;
-  /**
-   * A name of a domain (all lower-case)
-   * @type {string}
-   * @memberof ResponseDomain
-   */
-  domain_name: string;
-  /**
-   *
-   * @type {DomainType}
-   * @memberof ResponseDomain
-   */
-  domain_type: DomainType;
-  /**
-   *
-   * @type {DomainIpa}
-   * @memberof ResponseDomain
-   */
-  'rhel-idm'?: DomainIpa;
-  /**
-   *
-   * @type {SigningKeys}
-   * @memberof ResponseDomain
-   */
-  signing_keys?: SigningKeys;
-}
-
-/**
- * Represent a rhel-idm token which allow register the domain information.
- * @export
- * @interface RhelIdmToken
- */
-export interface RhelIdmToken {
-  /**
-   *
-   * @type {string}
-   * @memberof RhelIdmToken
-   */
-  expiration?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof RhelIdmToken
-   */
-  secret?: string;
-}
 /**
  * Serialized JWKs with revocation information
  * @export
- * @interface SigningKeys
+ * @interface SigningKeysResponse
  */
-export interface SigningKeys {
+export interface SigningKeysResponse {
   /**
    * An array of serialized JSON Web Keys (JWK strings)
    * @type {Array<string>}
-   * @memberof SigningKeys
+   * @memberof SigningKeysResponse
    */
   keys: Array<string>;
   /**
    * An array of revoked key identifiers (JWK kid)
    * @type {Array<string>}
-   * @memberof SigningKeys
+   * @memberof SigningKeysResponse
    */
   revoked_kids?: Array<string>;
 }
 /**
- * Update a domain resource
+ * A domain resource
  * @export
- * @interface UpdateDomain
+ * @interface UpdateDomainAgentRequest
  */
-export interface UpdateDomain {
-  /**
-   * Title to describe the domain.
-   * @type {string}
-   * @memberof UpdateDomain
-   */
-  title?: string;
-  /**
-   * Human readable description abou the domain.
-   * @type {string}
-   * @memberof UpdateDomain
-   */
-  description?: string;
-  /**
-   * Enable or disable host vm auto-enrollment for this domain
-   * @type {boolean}
-   * @memberof UpdateDomain
-   */
-  auto_enrollment_enabled?: boolean;
-  /**
-   * A domain id
-   * @type {string}
-   * @memberof UpdateDomain
-   */
-  domain_id?: string;
+export interface UpdateDomainAgentRequest {
   /**
    * A name of a domain (all lower-case)
    * @type {string}
-   * @memberof UpdateDomain
+   * @memberof UpdateDomainAgentRequest
    */
   domain_name: string;
   /**
    *
    * @type {DomainType}
-   * @memberof UpdateDomain
+   * @memberof UpdateDomainAgentRequest
    */
   domain_type: DomainType;
   /**
    *
    * @type {DomainIpa}
-   * @memberof UpdateDomain
+   * @memberof UpdateDomainAgentRequest
    */
-  'rhel-idm'?: DomainIpa;
+  'rhel-idm': DomainIpa;
+}
+
+/**
+ * A domain resource
+ * @export
+ * @interface UpdateDomainUserRequest
+ */
+export interface UpdateDomainUserRequest {
   /**
-   *
-   * @type {SigningKeys}
-   * @memberof UpdateDomain
+   * Title to describe the domain.
+   * @type {string}
+   * @memberof UpdateDomainUserRequest
    */
-  signing_keys?: SigningKeys;
+  title?: string;
+  /**
+   * Human readable description abou the domain.
+   * @type {string}
+   * @memberof UpdateDomainUserRequest
+   */
+  description?: string;
+  /**
+   * Enable or disable host vm auto-enrollment for this domain
+   * @type {boolean}
+   * @memberof UpdateDomainUserRequest
+   */
+  auto_enrollment_enabled?: boolean;
 }
 
 /**
@@ -868,7 +867,7 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
      * @param {string} inventoryId A Host-Based Inventory ID of the host.
      * @param {string} fqdn The full qualified domain name of the host.
      * @param {HostConf} hostConf Required information to take the action.
-     * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -919,35 +918,29 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
-     * Use the one time use token to update the initial information for a rhel-idm domain.
-     * @summary Update a domain.
-     * @param {string} xRhInsightsRequestId Request id
-     * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
-     * @param {string} uuid uuid for the IPA domain.
+     * Update the rhel-idm domain information.
+     * @summary Update domain information by ipa-hcc agent.
+     * @param {string} uuid The uuid that identify the domain.
      * @param {string} xRhIdmVersion ipa-hcc agent version
-     * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {UpdateDomainAgentRequest} updateDomainAgentRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    registerDomain: async (
-      xRhInsightsRequestId: string,
-      xRhIdmRegistrationToken: string,
+    updateDomainAgent: async (
       uuid: string,
       xRhIdmVersion: string,
-      domain: Domain,
+      updateDomainAgentRequest: UpdateDomainAgentRequest,
+      xRhInsightsRequestId?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'xRhInsightsRequestId' is not null or undefined
-      assertParamExists('registerDomain', 'xRhInsightsRequestId', xRhInsightsRequestId);
-      // verify required parameter 'xRhIdmRegistrationToken' is not null or undefined
-      assertParamExists('registerDomain', 'xRhIdmRegistrationToken', xRhIdmRegistrationToken);
       // verify required parameter 'uuid' is not null or undefined
-      assertParamExists('registerDomain', 'uuid', uuid);
+      assertParamExists('updateDomainAgent', 'uuid', uuid);
       // verify required parameter 'xRhIdmVersion' is not null or undefined
-      assertParamExists('registerDomain', 'xRhIdmVersion', xRhIdmVersion);
-      // verify required parameter 'domain' is not null or undefined
-      assertParamExists('registerDomain', 'domain', domain);
-      const localVarPath = `/domains/{uuid}/register`.replace(`{${'uuid'}}`, encodeURIComponent(String(uuid)));
+      assertParamExists('updateDomainAgent', 'xRhIdmVersion', xRhIdmVersion);
+      // verify required parameter 'updateDomainAgentRequest' is not null or undefined
+      assertParamExists('updateDomainAgent', 'updateDomainAgentRequest', updateDomainAgentRequest);
+      const localVarPath = `/domains/{uuid}`.replace(`{${'uuid'}}`, encodeURIComponent(String(uuid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -966,10 +959,6 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
         localVarHeaderParameter['X-Rh-Insights-Request-Id'] = String(xRhInsightsRequestId);
       }
 
-      if (xRhIdmRegistrationToken != null) {
-        localVarHeaderParameter['X-Rh-Idm-Registration-Token'] = String(xRhIdmRegistrationToken);
-      }
-
       if (xRhIdmVersion != null) {
         localVarHeaderParameter['X-Rh-Idm-Version'] = String(xRhIdmVersion);
       }
@@ -979,7 +968,7 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(domain, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(updateDomainAgentRequest, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -987,31 +976,25 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
-     * Update the initial information for a rhel-idm domain.
-     * @summary Update a previously registered domain.
-     * @param {string} xRhInsightsRequestId Request id
-     * @param {string} uuid uuid for the IPA domain.
-     * @param {string} xRhIdmVersion ipa-hcc agent version
-     * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * Update the rhel-idm domain information.
+     * @summary Update domain information by user.
+     * @param {string} uuid The uuid that identify the domain.
+     * @param {UpdateDomainUserRequest} updateDomainUserRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateDomain: async (
-      xRhInsightsRequestId: string,
+    updateDomainUser: async (
       uuid: string,
-      xRhIdmVersion: string,
-      domain: Domain,
+      updateDomainUserRequest: UpdateDomainUserRequest,
+      xRhInsightsRequestId?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'xRhInsightsRequestId' is not null or undefined
-      assertParamExists('updateDomain', 'xRhInsightsRequestId', xRhInsightsRequestId);
       // verify required parameter 'uuid' is not null or undefined
-      assertParamExists('updateDomain', 'uuid', uuid);
-      // verify required parameter 'xRhIdmVersion' is not null or undefined
-      assertParamExists('updateDomain', 'xRhIdmVersion', xRhIdmVersion);
-      // verify required parameter 'domain' is not null or undefined
-      assertParamExists('updateDomain', 'domain', domain);
-      const localVarPath = `/domains/{uuid}/update`.replace(`{${'uuid'}}`, encodeURIComponent(String(uuid)));
+      assertParamExists('updateDomainUser', 'uuid', uuid);
+      // verify required parameter 'updateDomainUserRequest' is not null or undefined
+      assertParamExists('updateDomainUser', 'updateDomainUserRequest', updateDomainUserRequest);
+      const localVarPath = `/domains/{uuid}`.replace(`{${'uuid'}}`, encodeURIComponent(String(uuid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1019,7 +1002,7 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
         baseOptions = configuration.baseOptions;
       }
 
-      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
@@ -1030,16 +1013,12 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
         localVarHeaderParameter['X-Rh-Insights-Request-Id'] = String(xRhInsightsRequestId);
       }
 
-      if (xRhIdmVersion != null) {
-        localVarHeaderParameter['X-Rh-Idm-Version'] = String(xRhIdmVersion);
-      }
-
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(domain, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(updateDomainUserRequest, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1062,7 +1041,7 @@ export const ActionsApiFp = function (configuration?: Configuration) {
      * @param {string} inventoryId A Host-Based Inventory ID of the host.
      * @param {string} fqdn The full qualified domain name of the host.
      * @param {HostConf} hostConf Required information to take the action.
-     * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -1077,52 +1056,47 @@ export const ActionsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Use the one time use token to update the initial information for a rhel-idm domain.
-     * @summary Update a domain.
-     * @param {string} xRhInsightsRequestId Request id
-     * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
-     * @param {string} uuid uuid for the IPA domain.
+     * Update the rhel-idm domain information.
+     * @summary Update domain information by ipa-hcc agent.
+     * @param {string} uuid The uuid that identify the domain.
      * @param {string} xRhIdmVersion ipa-hcc agent version
-     * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {UpdateDomainAgentRequest} updateDomainAgentRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async registerDomain(
-      xRhInsightsRequestId: string,
-      xRhIdmRegistrationToken: string,
+    async updateDomainAgent(
       uuid: string,
       xRhIdmVersion: string,
-      domain: Domain,
+      updateDomainAgentRequest: UpdateDomainAgentRequest,
+      xRhInsightsRequestId?: string,
       options?: AxiosRequestConfig
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Domain>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.registerDomain(
-        xRhInsightsRequestId,
-        xRhIdmRegistrationToken,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DomainUpdateResponse>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateDomainAgent(
         uuid,
         xRhIdmVersion,
-        domain,
+        updateDomainAgentRequest,
+        xRhInsightsRequestId,
         options
       );
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Update the initial information for a rhel-idm domain.
-     * @summary Update a previously registered domain.
-     * @param {string} xRhInsightsRequestId Request id
-     * @param {string} uuid uuid for the IPA domain.
-     * @param {string} xRhIdmVersion ipa-hcc agent version
-     * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * Update the rhel-idm domain information.
+     * @summary Update domain information by user.
+     * @param {string} uuid The uuid that identify the domain.
+     * @param {UpdateDomainUserRequest} updateDomainUserRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async updateDomain(
-      xRhInsightsRequestId: string,
+    async updateDomainUser(
       uuid: string,
-      xRhIdmVersion: string,
-      domain: Domain,
+      updateDomainUserRequest: UpdateDomainUserRequest,
+      xRhInsightsRequestId?: string,
       options?: AxiosRequestConfig
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Domain>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateDomain(xRhInsightsRequestId, uuid, xRhIdmVersion, domain, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DomainResponse>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateDomainUser(uuid, updateDomainUserRequest, xRhInsightsRequestId, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -1141,7 +1115,7 @@ export const ActionsApiFactory = function (configuration?: Configuration, basePa
      * @param {string} inventoryId A Host-Based Inventory ID of the host.
      * @param {string} fqdn The full qualified domain name of the host.
      * @param {HostConf} hostConf Required information to take the action.
-     * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -1155,40 +1129,42 @@ export const ActionsApiFactory = function (configuration?: Configuration, basePa
       return localVarFp.hostConf(inventoryId, fqdn, hostConf, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
     },
     /**
-     * Use the one time use token to update the initial information for a rhel-idm domain.
-     * @summary Update a domain.
-     * @param {string} xRhInsightsRequestId Request id
-     * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
-     * @param {string} uuid uuid for the IPA domain.
+     * Update the rhel-idm domain information.
+     * @summary Update domain information by ipa-hcc agent.
+     * @param {string} uuid The uuid that identify the domain.
      * @param {string} xRhIdmVersion ipa-hcc agent version
-     * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {UpdateDomainAgentRequest} updateDomainAgentRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    registerDomain(
-      xRhInsightsRequestId: string,
-      xRhIdmRegistrationToken: string,
+    updateDomainAgent(
       uuid: string,
       xRhIdmVersion: string,
-      domain: Domain,
+      updateDomainAgentRequest: UpdateDomainAgentRequest,
+      xRhInsightsRequestId?: string,
       options?: any
-    ): AxiosPromise<Domain> {
+    ): AxiosPromise<DomainUpdateResponse> {
       return localVarFp
-        .registerDomain(xRhInsightsRequestId, xRhIdmRegistrationToken, uuid, xRhIdmVersion, domain, options)
+        .updateDomainAgent(uuid, xRhIdmVersion, updateDomainAgentRequest, xRhInsightsRequestId, options)
         .then((request) => request(axios, basePath));
     },
     /**
-     * Update the initial information for a rhel-idm domain.
-     * @summary Update a previously registered domain.
-     * @param {string} xRhInsightsRequestId Request id
-     * @param {string} uuid uuid for the IPA domain.
-     * @param {string} xRhIdmVersion ipa-hcc agent version
-     * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * Update the rhel-idm domain information.
+     * @summary Update domain information by user.
+     * @param {string} uuid The uuid that identify the domain.
+     * @param {UpdateDomainUserRequest} updateDomainUserRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateDomain(xRhInsightsRequestId: string, uuid: string, xRhIdmVersion: string, domain: Domain, options?: any): AxiosPromise<Domain> {
-      return localVarFp.updateDomain(xRhInsightsRequestId, uuid, xRhIdmVersion, domain, options).then((request) => request(axios, basePath));
+    updateDomainUser(
+      uuid: string,
+      updateDomainUserRequest: UpdateDomainUserRequest,
+      xRhInsightsRequestId?: string,
+      options?: any
+    ): AxiosPromise<DomainResponse> {
+      return localVarFp.updateDomainUser(uuid, updateDomainUserRequest, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -1206,7 +1182,7 @@ export class ActionsApi extends BaseAPI {
    * @param {string} inventoryId A Host-Based Inventory ID of the host.
    * @param {string} fqdn The full qualified domain name of the host.
    * @param {HostConf} hostConf Required information to take the action.
-   * @param {string} [xRhInsightsRequestId] Unique request id for distributing tracing.
+   * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ActionsApi
@@ -1218,44 +1194,46 @@ export class ActionsApi extends BaseAPI {
   }
 
   /**
-   * Use the one time use token to update the initial information for a rhel-idm domain.
-   * @summary Update a domain.
-   * @param {string} xRhInsightsRequestId Request id
-   * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
-   * @param {string} uuid uuid for the IPA domain.
+   * Update the rhel-idm domain information.
+   * @summary Update domain information by ipa-hcc agent.
+   * @param {string} uuid The uuid that identify the domain.
    * @param {string} xRhIdmVersion ipa-hcc agent version
-   * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+   * @param {UpdateDomainAgentRequest} updateDomainAgentRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+   * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ActionsApi
    */
-  public registerDomain(
-    xRhInsightsRequestId: string,
-    xRhIdmRegistrationToken: string,
+  public updateDomainAgent(
     uuid: string,
     xRhIdmVersion: string,
-    domain: Domain,
+    updateDomainAgentRequest: UpdateDomainAgentRequest,
+    xRhInsightsRequestId?: string,
     options?: AxiosRequestConfig
   ) {
     return ActionsApiFp(this.configuration)
-      .registerDomain(xRhInsightsRequestId, xRhIdmRegistrationToken, uuid, xRhIdmVersion, domain, options)
+      .updateDomainAgent(uuid, xRhIdmVersion, updateDomainAgentRequest, xRhInsightsRequestId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Update the initial information for a rhel-idm domain.
-   * @summary Update a previously registered domain.
-   * @param {string} xRhInsightsRequestId Request id
-   * @param {string} uuid uuid for the IPA domain.
-   * @param {string} xRhIdmVersion ipa-hcc agent version
-   * @param {Domain} domain Information for an IPA domain so it is updated from the ipa-hcc agent.
+   * Update the rhel-idm domain information.
+   * @summary Update domain information by user.
+   * @param {string} uuid The uuid that identify the domain.
+   * @param {UpdateDomainUserRequest} updateDomainUserRequest Information for an IPA domain so it is updated from the ipa-hcc agent.
+   * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ActionsApi
    */
-  public updateDomain(xRhInsightsRequestId: string, uuid: string, xRhIdmVersion: string, domain: Domain, options?: AxiosRequestConfig) {
+  public updateDomainUser(
+    uuid: string,
+    updateDomainUserRequest: UpdateDomainUserRequest,
+    xRhInsightsRequestId?: string,
+    options?: AxiosRequestConfig
+  ) {
     return ActionsApiFp(this.configuration)
-      .updateDomain(xRhInsightsRequestId, uuid, xRhIdmVersion, domain, options)
+      .updateDomainUser(uuid, updateDomainUserRequest, xRhInsightsRequestId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -1267,17 +1245,21 @@ export class ActionsApi extends BaseAPI {
 export const ResourcesApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
-     * Create a domain in the current organization.
-     * @summary Create a domain.
-     * @param {CreateDomain} createDomain Domain object to be created.
+     * Request a domain registration token
+     * @summary Domain registration token request
+     * @param {DomainRegTokenRequest} domainRegTokenRequest Domain registration request
      * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createDomain: async (createDomain: CreateDomain, xRhInsightsRequestId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'createDomain' is not null or undefined
-      assertParamExists('createDomain', 'createDomain', createDomain);
-      const localVarPath = `/domains`;
+    createDomainToken: async (
+      domainRegTokenRequest: DomainRegTokenRequest,
+      xRhInsightsRequestId?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'domainRegTokenRequest' is not null or undefined
+      assertParamExists('createDomainToken', 'domainRegTokenRequest', domainRegTokenRequest);
+      const localVarPath = `/domains/token`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1301,7 +1283,7 @@ export const ResourcesApiAxiosParamCreator = function (configuration?: Configura
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(createDomain, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(domainRegTokenRequest, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1328,6 +1310,42 @@ export const ResourcesApiAxiosParamCreator = function (configuration?: Configura
       }
 
       const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication x-rh-identity required
+      await setApiKeyToObject(localVarHeaderParameter, 'X-Rh-Identity', configuration);
+
+      if (xRhInsightsRequestId != null) {
+        localVarHeaderParameter['X-Rh-Insights-Request-Id'] = String(xRhInsightsRequestId);
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Get signing keys and revokation information
+     * @summary Signing keys
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSigningKeys: async (xRhInsightsRequestId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/signing_keys`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
@@ -1432,6 +1450,71 @@ export const ResourcesApiAxiosParamCreator = function (configuration?: Configura
         options: localVarRequestOptions,
       };
     },
+    /**
+     * Register a domain in the current organization.
+     * @summary Register a domain.
+     * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
+     * @param {string} xRhIdmVersion ipa-hcc agent version
+     * @param {RegisterDomainRequest} registerDomainRequest Domain object to be registered.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    registerDomain: async (
+      xRhIdmRegistrationToken: string,
+      xRhIdmVersion: string,
+      registerDomainRequest: RegisterDomainRequest,
+      xRhInsightsRequestId?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'xRhIdmRegistrationToken' is not null or undefined
+      assertParamExists('registerDomain', 'xRhIdmRegistrationToken', xRhIdmRegistrationToken);
+      // verify required parameter 'xRhIdmVersion' is not null or undefined
+      assertParamExists('registerDomain', 'xRhIdmVersion', xRhIdmVersion);
+      // verify required parameter 'registerDomainRequest' is not null or undefined
+      assertParamExists('registerDomain', 'registerDomainRequest', registerDomainRequest);
+      const localVarPath = `/domains`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication x-rh-identity required
+      await setApiKeyToObject(localVarHeaderParameter, 'X-Rh-Identity', configuration);
+
+      // authentication x-rh-idm-registration-token required
+      await setApiKeyToObject(localVarHeaderParameter, 'X-Rh-Idm-Registration-Token', configuration);
+
+      if (xRhInsightsRequestId != null) {
+        localVarHeaderParameter['X-Rh-Insights-Request-Id'] = String(xRhInsightsRequestId);
+      }
+
+      if (xRhIdmRegistrationToken != null) {
+        localVarHeaderParameter['X-Rh-Idm-Registration-Token'] = String(xRhIdmRegistrationToken);
+      }
+
+      if (xRhIdmVersion != null) {
+        localVarHeaderParameter['X-Rh-Idm-Version'] = String(xRhIdmVersion);
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(registerDomainRequest, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -1443,19 +1526,19 @@ export const ResourcesApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = ResourcesApiAxiosParamCreator(configuration);
   return {
     /**
-     * Create a domain in the current organization.
-     * @summary Create a domain.
-     * @param {CreateDomain} createDomain Domain object to be created.
+     * Request a domain registration token
+     * @summary Domain registration token request
+     * @param {DomainRegTokenRequest} domainRegTokenRequest Domain registration request
      * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async createDomain(
-      createDomain: CreateDomain,
+    async createDomainToken(
+      domainRegTokenRequest: DomainRegTokenRequest,
       xRhInsightsRequestId?: string,
       options?: AxiosRequestConfig
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Domain>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.createDomain(createDomain, xRhInsightsRequestId, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DomainRegToken>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.createDomainToken(domainRegTokenRequest, xRhInsightsRequestId, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1472,6 +1555,20 @@ export const ResourcesApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDomain(uuid, xRhInsightsRequestId, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Get signing keys and revokation information
+     * @summary Signing keys
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSigningKeys(
+      xRhInsightsRequestId?: string,
+      options?: AxiosRequestConfig
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigningKeysResponse>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKeys(xRhInsightsRequestId, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1504,8 +1601,34 @@ export const ResourcesApiFp = function (configuration?: Configuration) {
       uuid: string,
       xRhInsightsRequestId?: string,
       options?: AxiosRequestConfig
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Domain>> {
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DomainResponse>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.readDomain(uuid, xRhInsightsRequestId, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Register a domain in the current organization.
+     * @summary Register a domain.
+     * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
+     * @param {string} xRhIdmVersion ipa-hcc agent version
+     * @param {RegisterDomainRequest} registerDomainRequest Domain object to be registered.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async registerDomain(
+      xRhIdmRegistrationToken: string,
+      xRhIdmVersion: string,
+      registerDomainRequest: RegisterDomainRequest,
+      xRhInsightsRequestId?: string,
+      options?: AxiosRequestConfig
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DomainRegisterResponse>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.registerDomain(
+        xRhIdmRegistrationToken,
+        xRhIdmVersion,
+        registerDomainRequest,
+        xRhInsightsRequestId,
+        options
+      );
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -1519,15 +1642,15 @@ export const ResourcesApiFactory = function (configuration?: Configuration, base
   const localVarFp = ResourcesApiFp(configuration);
   return {
     /**
-     * Create a domain in the current organization.
-     * @summary Create a domain.
-     * @param {CreateDomain} createDomain Domain object to be created.
+     * Request a domain registration token
+     * @summary Domain registration token request
+     * @param {DomainRegTokenRequest} domainRegTokenRequest Domain registration request
      * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createDomain(createDomain: CreateDomain, xRhInsightsRequestId?: string, options?: any): AxiosPromise<Domain> {
-      return localVarFp.createDomain(createDomain, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
+    createDomainToken(domainRegTokenRequest: DomainRegTokenRequest, xRhInsightsRequestId?: string, options?: any): AxiosPromise<DomainRegToken> {
+      return localVarFp.createDomainToken(domainRegTokenRequest, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
     },
     /**
      * Delete an existing domain from the current organization.
@@ -1539,6 +1662,16 @@ export const ResourcesApiFactory = function (configuration?: Configuration, base
      */
     deleteDomain(uuid: string, xRhInsightsRequestId?: string, options?: any): AxiosPromise<void> {
       return localVarFp.deleteDomain(uuid, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Get signing keys and revokation information
+     * @summary Signing keys
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSigningKeys(xRhInsightsRequestId?: string, options?: any): AxiosPromise<SigningKeysResponse> {
+      return localVarFp.getSigningKeys(xRhInsightsRequestId, options).then((request) => request(axios, basePath));
     },
     /**
      * For the current organization, list all the domains that are being managed from console.dot
@@ -1560,8 +1693,29 @@ export const ResourcesApiFactory = function (configuration?: Configuration, base
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readDomain(uuid: string, xRhInsightsRequestId?: string, options?: any): AxiosPromise<Domain> {
+    readDomain(uuid: string, xRhInsightsRequestId?: string, options?: any): AxiosPromise<DomainResponse> {
       return localVarFp.readDomain(uuid, xRhInsightsRequestId, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Register a domain in the current organization.
+     * @summary Register a domain.
+     * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
+     * @param {string} xRhIdmVersion ipa-hcc agent version
+     * @param {RegisterDomainRequest} registerDomainRequest Domain object to be registered.
+     * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    registerDomain(
+      xRhIdmRegistrationToken: string,
+      xRhIdmVersion: string,
+      registerDomainRequest: RegisterDomainRequest,
+      xRhInsightsRequestId?: string,
+      options?: any
+    ): AxiosPromise<DomainRegisterResponse> {
+      return localVarFp
+        .registerDomain(xRhIdmRegistrationToken, xRhIdmVersion, registerDomainRequest, xRhInsightsRequestId, options)
+        .then((request) => request(axios, basePath));
     },
   };
 };
@@ -1574,17 +1728,17 @@ export const ResourcesApiFactory = function (configuration?: Configuration, base
  */
 export class ResourcesApi extends BaseAPI {
   /**
-   * Create a domain in the current organization.
-   * @summary Create a domain.
-   * @param {CreateDomain} createDomain Domain object to be created.
+   * Request a domain registration token
+   * @summary Domain registration token request
+   * @param {DomainRegTokenRequest} domainRegTokenRequest Domain registration request
    * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ResourcesApi
    */
-  public createDomain(createDomain: CreateDomain, xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
+  public createDomainToken(domainRegTokenRequest: DomainRegTokenRequest, xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
     return ResourcesApiFp(this.configuration)
-      .createDomain(createDomain, xRhInsightsRequestId, options)
+      .createDomainToken(domainRegTokenRequest, xRhInsightsRequestId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1600,6 +1754,20 @@ export class ResourcesApi extends BaseAPI {
   public deleteDomain(uuid: string, xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
     return ResourcesApiFp(this.configuration)
       .deleteDomain(uuid, xRhInsightsRequestId, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Get signing keys and revokation information
+   * @summary Signing keys
+   * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ResourcesApi
+   */
+  public getSigningKeys(xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
+    return ResourcesApiFp(this.configuration)
+      .getSigningKeys(xRhInsightsRequestId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1631,6 +1799,29 @@ export class ResourcesApi extends BaseAPI {
   public readDomain(uuid: string, xRhInsightsRequestId?: string, options?: AxiosRequestConfig) {
     return ResourcesApiFp(this.configuration)
       .readDomain(uuid, xRhInsightsRequestId, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Register a domain in the current organization.
+   * @summary Register a domain.
+   * @param {string} xRhIdmRegistrationToken One-time password to authenticate domain registration with ipa-hcc command.
+   * @param {string} xRhIdmVersion ipa-hcc agent version
+   * @param {RegisterDomainRequest} registerDomainRequest Domain object to be registered.
+   * @param {string} [xRhInsightsRequestId] Request id for distributed tracing.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ResourcesApi
+   */
+  public registerDomain(
+    xRhIdmRegistrationToken: string,
+    xRhIdmVersion: string,
+    registerDomainRequest: RegisterDomainRequest,
+    xRhInsightsRequestId?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return ResourcesApiFp(this.configuration)
+      .registerDomain(xRhIdmRegistrationToken, xRhIdmVersion, registerDomainRequest, xRhInsightsRequestId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
