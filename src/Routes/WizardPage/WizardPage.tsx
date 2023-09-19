@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { Domain } from '../../Api/api';
 
 // Lazy load for the wizard pages
-const Page1 = React.lazy(() => import('./Components/Page1/Page1'));
-const Page2 = React.lazy(() => import('./Components/Page2/Page2'));
-const Page3 = React.lazy(() => import('./Components/Page3/Page3'));
-const Page4 = React.lazy(() => import('./Components/Page4/Page4'));
+const PagePreparation = React.lazy(() => import('./Components/PagePreparation/PagePreparation'));
+const PageServiceRegistration = React.lazy(() => import('./Components/PageServiceRegistration/PageServiceRegistration'));
+const PageServiceDetails = React.lazy(() => import('./Components/PageServiceDetails/PageServiceDetails'));
+const PageReview = React.lazy(() => import('./Components/PageReview/PageReview'));
 
 const initialDomain: Domain = {
   domain_id: '14f3a7a4-32c5-11ee-b40f-482ae3863d30',
@@ -61,24 +61,24 @@ const WizardPage: React.FC = () => {
   const steps = [
     {
       // This page only display the pre-requisites
-      name: 'Prerequisites',
-      component: <Page1 />,
+      name: 'Preparation',
+      component: <PagePreparation />,
     },
     {
-      name: 'Basic information',
-      // FIXME Pass here the 'registering.domain' field from the context
-      component: <Page2 data={data} />,
-    },
-    {
-      name: 'Registration',
+      name: 'Service Registration',
       // FIXME Pass here the 'registering.domain' field from the context
       // FIXME Pass here the 'registering.token' field from the context
-      component: <Page3 data={data} token={demoToken} />,
+      component: <PageServiceRegistration data={data} />,
+    },
+    {
+      name: 'Service Information',
+      // FIXME Pass here the 'registering.domain' field from the context
+      component: <PageServiceDetails data={data} />,
     },
     {
       name: 'Review',
       // FIXME Pass here the 'registering.domain' field from the context
-      component: <Page4 data={data} />,
+      component: <PageReview data={data} />,
     },
   ];
 

@@ -3,8 +3,8 @@
 // import Page1 from './Page1';
 import '@testing-library/jest-dom';
 
-test('expect Page3 to render children', () => {
-  // render(<Page3></Page3>);
+test('expect PageServiceRegistration to render children', () => {
+  // render(<PageServiceRegistration></PageServiceRegistration>);
   // expect(screen.getByRole('heading')).toHaveTextContent('Hello');
   return;
 });

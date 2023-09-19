@@ -1,10 +1,10 @@
 // import React from 'react';
 // import { render } from '@testing-library/react';
-// import Page1 from './Page1';
+// import PagePreparation from './PagePreparation';
 import '@testing-library/jest-dom';
 
-test('expect Page1 to render children', () => {
-  // render(<Page1></Page1>);
+test('expect PagePreparation to render children', () => {
+  // render(<PagePreparation></PagePreparation>);
   // expect(screen.getByRole('heading')).toHaveTextContent('Hello');
   return;
 });

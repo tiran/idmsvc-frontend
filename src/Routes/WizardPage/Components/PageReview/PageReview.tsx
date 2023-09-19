@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import { DescriptionList, DescriptionListDescription, DescriptionListGroup, DescriptionListTerm, Switch } from '@patternfly/react-core';
 
-import './Page4.scss';
+import './PageReview.scss';
 import { Domain } from '../../../../Api/api';
 import DomainOverview from '../../Components/DomainOverview/DomainOverview';
 
-const Page4: React.FC<{ data: Domain }> = (props) => {
+const PageReview: React.FC<{ data: Domain }> = (props) => {
   const [isHostJoinEnabled, setIsHostJoinEnabled] = React.useState(true);
   const [domain] = useState<Domain>(props.data);
 
@@ -63,4 +63,4 @@ const Page4: React.FC<{ data: Domain }> = (props) => {
   );
 };
 
-export default Page4;
+export default PageReview;

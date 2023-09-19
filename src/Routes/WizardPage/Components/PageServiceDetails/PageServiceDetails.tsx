@@ -3,9 +3,9 @@ import { Form, FormGroup, TextArea } from '@patternfly/react-core';
 import { TextInput } from '@patternfly/react-core';
 import { Domain } from '../../../../Api/api';
 
-import './Page2.scss';
+import './PageServiceDetails.scss';
 
-const Page2: React.FC<{ data: Domain }> = (props) => {
+const PageServiceDetails: React.FC<{ data: Domain }> = (props) => {
   const [data, setData] = useState<Domain>(props.data);
 
   return (
@@ -34,4 +34,4 @@ const Page2: React.FC<{ data: Domain }> = (props) => {
   );
 };
 
-export default Page2;
+export default PageServiceDetails;

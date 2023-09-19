@@ -3,15 +3,15 @@ import React from 'react';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
 import { Button, ClipboardCopy, Form, FormGroup, TextContent } from '@patternfly/react-core';
 
-import './Page3.scss';
+import './PageServiceRegistration.scss';
 import { Domain } from '../../../../Api/api';
 
-interface Page3Prop {
-  data: Domain;
-  token: string;
+interface PageServiceRegistrationProp {
+  data?: Domain;
+  token?: string;
 }
 
-const Page3: React.FC<Page3Prop> = (props) => {
+const PageServiceRegistration: React.FC<PageServiceRegistrationProp> = (props) => {
   // TODO Update links
   const installServerPackagesLink = 'https://freeipa.org/page/Quick_Start_Guide';
 
@@ -23,7 +23,7 @@ const Page3: React.FC<Page3Prop> = (props) => {
     openInNewWindow(installServerPackagesLink);
   };
 
-  const ipa_hcc_register_cmd = 'ipa-hcc register ' + props.data.domain_id + ' ' + props.token;
+  const ipa_hcc_register_cmd = 'ipa-hcc register ' + props.data?.domain_id + ' ' + props.token;
   const ipa_hcc_status_cmd = 'ipa-hcc status';
 
   return (
@@ -69,4 +69,4 @@ const Page3: React.FC<Page3Prop> = (props) => {
   );
 };
 
-export default Page3;
+export default PageServiceRegistration;

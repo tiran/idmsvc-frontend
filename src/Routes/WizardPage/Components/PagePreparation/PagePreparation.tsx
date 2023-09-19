@@ -3,9 +3,9 @@ import ExternalLinkAltIcon from '@patternfly/react-icons/dist/esm/icons/external
 import InfoCircleIcon from '@patternfly/react-icons/dist/esm/icons/info-circle-icon';
 import { Button, ClipboardCopy, Form, FormGroup, Icon, Select, SelectOption, Stack, TextContent } from '@patternfly/react-core';
 
-import './Page1.scss';
+import './PagePreparation.scss';
 
-const Page1: React.FC = () => {
+const PagePreparation: React.FC = () => {
   // TODO Update links
   const firewallConfigurationLink =
     'https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/using-and-configuring-firewalld_configuring-and-managing-networking';
@@ -147,4 +147,4 @@ const Page1: React.FC = () => {
   );
 };
 
-export default Page1;
+export default PagePreparation;
