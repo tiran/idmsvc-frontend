@@ -202,7 +202,7 @@ const DefaultPage = () => {
 
   const [page, setPage] = useState<number>(0);
   const [itemCount, setItemCount] = useState<number>(0);
-  const [perPage, setPerPage] = useState<number>(10);
+  const [perPage] = useState<number>(10);
   const [offset, setOffset] = useState<number>(0);
 
   useEffect(() => {

@@ -19,6 +19,6 @@ module.exports = {
     '/api/idmsvc/': { host: 'http://localhost:8000' },
 
     /* Add routes to the chrome-service*/
-    '/api/chrome-service/v1/static/': { host: 'http://localhost:9999' },
+    /* '/api/chrome-service/v1/static/': { host: 'http://localhost:9999' }, */
   },
 };

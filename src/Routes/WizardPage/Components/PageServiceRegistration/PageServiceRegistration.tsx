@@ -1,7 +1,7 @@
 import React from 'react';
 // import { useDispatch } from 'react-redux';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
-import { Button, ClipboardCopy, Form, FormGroup, TextContent } from '@patternfly/react-core';
+import { Alert, Button, ClipboardCopy, Form, FormGroup, TextContent } from '@patternfly/react-core';
 
 import './PageServiceRegistration.scss';
 import { Domain } from '../../../../Api/api';
@@ -12,59 +12,47 @@ interface PageServiceRegistrationProp {
 }
 
 const PageServiceRegistration: React.FC<PageServiceRegistrationProp> = (props) => {
-  // TODO Update links
-  const installServerPackagesLink = 'https://freeipa.org/page/Quick_Start_Guide';
-
-  const openInNewWindow = (url: string) => {
-    window.open(url, '_blank');
-  };
-
-  const onInstallServerPackagesClick = () => {
-    openInNewWindow(installServerPackagesLink);
-  };
-
-  const ipa_hcc_register_cmd = 'ipa-hcc register ' + props.data?.domain_id + ' ' + props.token;
-  const ipa_hcc_status_cmd = 'ipa-hcc status';
+  // FIXME Delete this
+  const demoToken = 'F4ZWgmhUxcw.d2iqKLHa8281CM_1aknGLsBRFpwfoy3YkrTbLBIuEkM';
+  const ipa_hcc_register_cmd = 'ipa-hcc register ' + demoToken;
+  const alertTitle = 'Register your directory and domain service';
+  // FIXME Update the URL with the location for docs
+  const linkLearnMoreAbout = 'https://access.redhat.com/articles/1586893';
 
   return (
     <React.Fragment>
+      <Alert title={alertTitle} variant="warning" isInline>
+        Completing this step registers your directory and domain service, and cannot be undone from the wizard.{' '}
+        {/* FIXME Q What is the better way to fix the top padding between the link and the text? */}
+        <div className="--pf-global--spacer--sm">
+          <Button component="a" target="_blank" variant="link" isInline icon={<ExternalLinkAltIcon />} iconPosition="right" href={linkLearnMoreAbout}>
+            Learn more about the directory and domain services.
+          </Button>
+        </div>
+      </Alert>
       <Form
         onSubmit={(value) => {
           console.debug('onSubmit WizardPage' + String(value));
         }}
       >
         <FormGroup label="Register the domain blueprint with RHEL IdM/IPA" fieldId="register-domain-name">
-          <TextContent>
-            Intro test lorem ipsum dolor sit amet, consectetur adipisciing elit, sed do esiusmod tempor incididunt ut labore at dolore.
-          </TextContent>
-          <ol className="domain-page-3-list">
+          <ol>
             <li>
-              <TextContent>Run the registration command on one IPA server with the &quot;ipa-hcc-server&quot; package.</TextContent>
+              <TextContent>
+                To register your Red Hat IdM/IPA server with the Red Hat Hybrid Cloud Console, run the following command in your RHEL IdM (IPA)
+                server&#39;s terminal.
+              </TextContent>
               <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
                 {ipa_hcc_register_cmd}
               </ClipboardCopy>
             </li>
             <li>
-              <TextContent>The command registers the IPA domain and all IPA servers with Console.</TextContent>
-            </li>
-            <li>
-              <TextContent>Once you have completed the steps, return here to test the package installation.</TextContent>
-              <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly>
-                {ipa_hcc_status_cmd}
-              </ClipboardCopy>
-            </li>
-            <li>
-              <TextContent>If you receive message &quot;XYZ&quot; as a final response, the package was successfully installed.</TextContent>
-              <TextContent>
-                Didn&apos;t get the success message?
-                <Button variant="link" icon={<ExternalLinkAltIcon />} iconPosition="right" onClick={onInstallServerPackagesClick}>
-                  Troubleshoot your package installation
-                </Button>
-              </TextContent>
+              <TextContent>Once the process have been completed, run a verification test.</TextContent>
             </li>
           </ol>
         </FormGroup>
       </Form>
+      {/* TODO Add here the new VerifyRegistration component */}
     </React.Fragment>
   );
 };

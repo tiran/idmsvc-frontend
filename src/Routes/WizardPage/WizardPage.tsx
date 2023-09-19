@@ -31,8 +31,6 @@ const initialDomain: Domain = {
   },
 };
 
-const demoToken = 'c34e10a8-32c7-11ee-bde3-482ae3863d30';
-
 /**
  * Wizard page to register a new domain into the service.
  */
@@ -65,13 +63,13 @@ const WizardPage: React.FC = () => {
       component: <PagePreparation />,
     },
     {
-      name: 'Service Registration',
+      name: 'Service registration',
       // FIXME Pass here the 'registering.domain' field from the context
       // FIXME Pass here the 'registering.token' field from the context
       component: <PageServiceRegistration data={data} />,
     },
     {
-      name: 'Service Information',
+      name: 'Service details',
       // FIXME Pass here the 'registering.domain' field from the context
       component: <PageServiceDetails data={data} />,
     },
@@ -82,7 +80,7 @@ const WizardPage: React.FC = () => {
     },
   ];
 
-  const title = 'Add domain';
+  const title = 'Register directory and domain service';
 
   return (
     <React.Fragment>
@@ -90,7 +88,7 @@ const WizardPage: React.FC = () => {
         <PageHeader>
           <PageHeaderTitle title={title} />
           <p>
-            Add a domain to the registry.{' '}
+            Add a service to the registry.{' '}
             <Button
               component="a"
               target="_blank"
@@ -100,7 +98,7 @@ const WizardPage: React.FC = () => {
               iconPosition="right"
               href={linkLearnMoreAbout}
             >
-              Learn more about the domain registry.
+              Learn more about the directory and domain services.
             </Button>
           </p>
         </PageHeader>
