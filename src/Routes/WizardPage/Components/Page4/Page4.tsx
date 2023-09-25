@@ -29,7 +29,7 @@ const Page4: React.FC<{ data: Domain }> = (props) => {
       >
         <DescriptionListGroup>
           <DescriptionListTerm>Identity and access management solution</DescriptionListTerm>
-          <DescriptionListDescription>{domain.domain_type === 'rhel-idm' && <div>Red Hat Enterprise Linux IdM/IPA</div>}</DescriptionListDescription>
+          <DescriptionListDescription>{domain.domain_type === 'rhel-idm' && <div>RHEL IdM (IPA)</div>}</DescriptionListDescription>
         </DescriptionListGroup>
         <DescriptionListGroup>
           <DescriptionListTerm>Name</DescriptionListTerm>
