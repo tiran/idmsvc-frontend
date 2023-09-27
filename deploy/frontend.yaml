@@ -10,7 +10,7 @@ objects:
     spec:
       envName: ${ENV_NAME}
       title: "Directory & Domain Services"
-      deploymentRepo: https://gitlab.cee.redhat.com/identity-management/idmocp/idm-domains-frontend
+      deploymentRepo: https://github.com/podengo-project/idmsvc-frontend
       API:
         versions:
           - v1
