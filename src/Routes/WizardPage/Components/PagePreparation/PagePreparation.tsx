@@ -131,7 +131,7 @@ const PagePreparation = (props: PagePreparationProps) => {
                   steps to install the server packages
                 </Button>
                 <ClipboardCopy hoverTip="copy" clickTip="Copied" isReadOnly ouiaId="TextWizardPagePrepareInstallPackage">
-                  dnf copr enable copr.devel.redhat.com/cheimes/ipa-hcc && dnf install ipa-hcc-server
+                  dnf copr enable @podengo/ipa-hcc && dnf install ipa-hcc-server
                 </ClipboardCopy>
               </TextContent>
               <TextContent className="pf-u-pt-md">
